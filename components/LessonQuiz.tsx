@@ -1,9 +1,340 @@
 "use client";
-import Link from "next/link";import {useEffect,useMemo,useState} from "react";import {ArrowLeft,ArrowRight,BookOpen,Check,CheckCircle2,ChevronLeft,Clock3,Lightbulb,RotateCcw,X} from "lucide-react";import {Topic,topics} from "@/lib/course-data";import {markTopicPassed,readProgress} from "@/lib/progress";import {Logo} from "./Logo";
-type Mode="lesson"|"quiz"|"result";
-export function LessonQuiz({topic,email}:{topic:Topic;email:string}){const [mode,setMode]=useState<Mode>("lesson");const [answers,setAnswers]=useState<Record<number,number>>({});const [current,setCurrent]=useState(0);const [lessonPage,setLessonPage]=useState(0);const score=useMemo(()=>topic.questions.reduce((n,q,i)=>n+(answers[i]===q.answer?1:0),0),[answers,topic]);const next=topics[topic.number];
-useEffect(()=>{const passed=readProgress(email);if(topic.number>1&&!passed.includes(topics[topic.number-2].slug))location.href="/dashboard"},[email,topic]);useEffect(()=>{window.scrollTo(0,0)},[mode,lessonPage,current]);function submit(){if(Object.keys(answers).length<topic.questions.length)return;setMode("result");if(score===topic.questions.length)markTopicPassed(email,topic.slug);}
-function retry(){setAnswers({});setCurrent(0);setMode("quiz")}
-return <div className="learn-shell"><header className="learn-top"><Logo/><Link href="/dashboard"><X/> <span>Exit lesson</span></Link></header>{mode==="lesson"&&<><div className="lesson-progress"><i style={{width:`${(lessonPage+1)/(topic.sections.length+1)*100}%`}}/></div><main className="lesson-main"><aside className="lesson-meta"><Link href="/dashboard"><ChevronLeft/> Back to path</Link><div className="meta-number">{String(topic.number).padStart(2,"0")}</div><span>LEVEL {String(topic.number).padStart(2,"0")}</span><h1>{topic.title}</h1><p>{topic.strap}</p><div><span><Clock3/> {topic.duration}</span><span><BookOpen/> {topic.sections.length} chapters</span></div></aside><section className="lesson-content">{lessonPage===0?<><span className="content-kicker">WHAT YOU’LL LEARN</span><h2>A clear foundation before you act.</h2><p className="lesson-lead">This level gives you the mental model and practical checks to use Aura with confidence.</p><div className="objectives">{topic.objectives.map((o,i)=><div key={o}><b>{i+1}</b><p>{o}</p><Check/></div>)}</div><div className="source-note"><Lightbulb/><p><b>Grounded in Aura’s product material.</b> This lesson uses heyAura’s published product, security and workflow information, expanded with core Web3 concepts.</p></div></>:<><span className="content-kicker">CHAPTER {lessonPage} OF {topic.sections.length}</span><h2>{topic.sections[lessonPage-1].title}</h2><p className="chapter-body">{topic.sections[lessonPage-1].body}</p>{topic.sections[lessonPage-1].callout&&<blockquote><Lightbulb/><p>{topic.sections[lessonPage-1].callout}</p></blockquote>}<div className="knowledge-check"><span>PAUSE & CHECK</span><p>{lessonPage===topic.sections.length?"Could you explain this idea to someone else without looking back?":"What is the one detail here you would verify before taking action?"}</p></div></>}</section></main><footer className="lesson-footer"><button disabled={lessonPage===0} onClick={()=>setLessonPage(x=>x-1)}><ArrowLeft/> Previous</button><span>{lessonPage+1} / {topic.sections.length+1}</span>{lessonPage<topic.sections.length?<button className="primary" onClick={()=>setLessonPage(x=>x+1)}>Continue <ArrowRight/></button>:<button className="primary" onClick={()=>setMode("quiz")}>Take the quiz <ArrowRight/></button>}</footer></>}
-{mode==="quiz"&&<main className="quiz-page"><div className="quiz-head"><div><span>LEVEL {String(topic.number).padStart(2,"0")} QUIZ</span><h1>{topic.title}</h1></div><b>{Object.keys(answers).length}/10 answered</b></div><div className="quiz-track">{topic.questions.map((_,i)=><button key={i} onClick={()=>setCurrent(i)} className={`${i===current?"current":""} ${answers[i]!==undefined?"answered":""}`}>{answers[i]!==undefined?<Check/>:i+1}</button>)}</div><section className="question-card"><span>QUESTION {current+1} OF 10</span><h2>{topic.questions[current].q}</h2><div className="options">{topic.questions[current].options.map((o,i)=><button key={o} onClick={()=>setAnswers({...answers,[current]:i})} className={answers[current]===i?"selected":""}><b>{String.fromCharCode(65+i)}</b><span>{o}</span>{answers[current]===i&&<CheckCircle2/>}</button>)}</div></section><footer className="quiz-footer"><button disabled={current===0} onClick={()=>setCurrent(x=>x-1)}><ArrowLeft/> Previous</button>{current<9?<button className="primary" disabled={answers[current]===undefined} onClick={()=>setCurrent(x=>x+1)}>Next question <ArrowRight/></button>:<button className="primary" disabled={Object.keys(answers).length<10} onClick={submit}>Submit quiz <Check/></button>}</footer></main>}
-{mode==="result"&&<main className="results-page"><section className={`result-hero ${score===10?"perfect":""}`}><div className="score-ring"><b>{score*10}%</b><span>{score}/10 correct</span></div><div><span>{score===10?"LEVEL MASTERED":"KEEP GOING"}</span><h1>{score===10?"Perfect score!":`${10-score} answer${10-score===1?"":"s"} to revisit.`}</h1><p>{score===10?"You’ve demonstrated complete understanding and unlocked the next level.":"Review the explanations below, revisit the lesson if needed, then retry. You need 100% to move forward."}</p><div>{score===10?(next?<Link className="primary" href={`/learn/${next.slug}`}>Continue to level {topic.number+1} <ArrowRight/></Link>:<Link className="primary" href="/dashboard">View completed path <Check/></Link>):<><button className="primary" onClick={retry}><RotateCcw/> Retry quiz</button><button onClick={()=>{setLessonPage(0);setMode("lesson")}}><BookOpen/> Review lesson</button></>}</div></div></section><section className="review"><div className="review-head"><div><span>ANSWER REVIEW</span><h2>Understand every answer</h2></div><p>{score} correct · {10-score} to review</p></div>{topic.questions.map((q,i)=>{const ok=answers[i]===q.answer;return <article key={q.q} className={ok?"correct":"wrong"}><div className="review-status">{ok?<Check/>:<X/>}</div><div><span>QUESTION {i+1}</span><h3>{q.q}</h3>{!ok&&<p className="your-answer">Your answer: <b>{q.options[answers[i]]}</b></p>}<p className="correct-answer">Correct answer: <b>{q.options[q.answer]}</b></p><p className="explanation"><Lightbulb/>{q.explanation}</p></div></article>})}</section></main>}</div>}
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Check,
+  CheckCircle2,
+  ChevronLeft,
+  Clock3,
+  Lightbulb,
+  RotateCcw,
+  X,
+} from "lucide-react";
+import { Topic, topics } from "@/lib/course-data";
+import { markTopicPassed, readProgress } from "@/lib/progress";
+import { Logo } from "./Logo";
+type Mode = "lesson" | "quiz" | "result";
+export function LessonQuiz({ topic, email }: { topic: Topic; email: string }) {
+  const [mode, setMode] = useState<Mode>("lesson");
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [current, setCurrent] = useState(0);
+  const [lessonPage, setLessonPage] = useState(0);
+  const score = useMemo(
+    () =>
+      topic.questions.reduce(
+        (n, q, i) => n + (answers[i] === q.answer ? 1 : 0),
+        0,
+      ),
+    [answers, topic],
+  );
+  const next = topics[topic.number];
+  useEffect(() => {
+    const passed = readProgress(email);
+    if (topic.number > 1 && !passed.includes(topics[topic.number - 2].slug))
+      location.href = "/dashboard";
+  }, [email, topic]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [mode, lessonPage, current]);
+  function submit() {
+    if (Object.keys(answers).length < topic.questions.length) return;
+    setMode("result");
+    if (score === topic.questions.length) markTopicPassed(email, topic.slug);
+  }
+  function retry() {
+    setAnswers({});
+    setCurrent(0);
+    setMode("quiz");
+  }
+  return (
+    <div className="learn-shell">
+      <header className="learn-top">
+        <Logo />
+        <Link href="/dashboard">
+          <X /> <span>Exit lesson</span>
+        </Link>
+      </header>
+      {mode === "lesson" && (
+        <>
+          <div className="lesson-progress">
+            <i
+              style={{
+                width: `${((lessonPage + 1) / (topic.sections.length + 1)) * 100}%`,
+              }}
+            />
+          </div>
+          <main className="lesson-main">
+            <aside className="lesson-meta">
+              <Link href="/dashboard">
+                <ChevronLeft /> Back to path
+              </Link>
+              <div className="meta-number">
+                {String(topic.number).padStart(2, "0")}
+              </div>
+              <span>LEVEL {String(topic.number).padStart(2, "0")}</span>
+              <h1>{topic.title}</h1>
+              <p>{topic.strap}</p>
+              <div>
+                <span>
+                  <Clock3 /> {topic.duration}
+                </span>
+                <span>
+                  <BookOpen /> {topic.sections.length} chapters
+                </span>
+              </div>
+            </aside>
+            <section className="lesson-content">
+              {lessonPage === 0 ? (
+                <>
+                  <span className="content-kicker">WHAT YOU’LL LEARN</span>
+                  <h2>A clear foundation before you act.</h2>
+                  <p className="lesson-lead">
+                    This level gives you the mental model and practical checks
+                    to use Aura with confidence.
+                  </p>
+                  <div className="objectives">
+                    {topic.objectives.map((o, i) => (
+                      <div key={o}>
+                        <b>{i + 1}</b>
+                        <p>{o}</p>
+                        <Check />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="source-note">
+                    <Lightbulb />
+                    <p>
+                      <b>Grounded in Aura’s product material.</b> This lesson
+                      uses heyAura’s published product, security and workflow
+                      information, expanded with core Web3 concepts.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="content-kicker">
+                    CHAPTER {lessonPage} OF {topic.sections.length}
+                  </span>
+                  <h2>{topic.sections[lessonPage - 1].title}</h2>
+                  <p className="chapter-body">
+                    {topic.sections[lessonPage - 1].body}
+                  </p>
+                  {topic.sections[lessonPage - 1].callout && (
+                    <blockquote>
+                      <Lightbulb />
+                      <p>{topic.sections[lessonPage - 1].callout}</p>
+                    </blockquote>
+                  )}
+                  {lessonPage === topic.sections.length && (
+                    <div className="lesson-recap">
+                      <span>KNOWLEDGE RECAP</span>
+                      <h3>Everything the quiz will assess</h3>
+                      <p>
+                        Review these lesson facts before continuing. The quiz
+                        will not ask about anything outside them.
+                      </p>
+                      <ol>
+                        {topic.questions.map((question) => (
+                          <li key={question.q}>
+                            <CheckCircle2 />
+                            <div>
+                              <b>{question.options[question.answer]}</b>
+                              <small>{question.explanation}</small>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+                  <div className="knowledge-check">
+                    <span>PAUSE & CHECK</span>
+                    <p>
+                      {lessonPage === topic.sections.length
+                        ? "Could you explain each recap point without looking back?"
+                        : "What is the one detail here you would verify before taking action?"}
+                    </p>
+                  </div>
+                </>
+              )}
+            </section>
+          </main>
+          <footer className="lesson-footer">
+            <button
+              disabled={lessonPage === 0}
+              onClick={() => setLessonPage((x) => x - 1)}
+            >
+              <ArrowLeft /> Previous
+            </button>
+            <span>
+              {lessonPage + 1} / {topic.sections.length + 1}
+            </span>
+            {lessonPage < topic.sections.length ? (
+              <button
+                className="primary"
+                onClick={() => setLessonPage((x) => x + 1)}
+              >
+                Continue <ArrowRight />
+              </button>
+            ) : (
+              <button className="primary" onClick={() => setMode("quiz")}>
+                Take the quiz <ArrowRight />
+              </button>
+            )}
+          </footer>
+        </>
+      )}
+      {mode === "quiz" && (
+        <main className="quiz-page">
+          <div className="quiz-head">
+            <div>
+              <span>LEVEL {String(topic.number).padStart(2, "0")} QUIZ</span>
+              <h1>{topic.title}</h1>
+            </div>
+            <b>{Object.keys(answers).length}/10 answered</b>
+          </div>
+          <div className="quiz-track">
+            {topic.questions.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`${i === current ? "current" : ""} ${answers[i] !== undefined ? "answered" : ""}`}
+              >
+                {answers[i] !== undefined ? <Check /> : i + 1}
+              </button>
+            ))}
+          </div>
+          <section className="question-card">
+            <span>QUESTION {current + 1} OF 10</span>
+            <h2>{topic.questions[current].q}</h2>
+            <div className="options">
+              {topic.questions[current].options.map((o, i) => (
+                <button
+                  key={o}
+                  onClick={() => setAnswers({ ...answers, [current]: i })}
+                  className={answers[current] === i ? "selected" : ""}
+                >
+                  <b>{String.fromCharCode(65 + i)}</b>
+                  <span>{o}</span>
+                  {answers[current] === i && <CheckCircle2 />}
+                </button>
+              ))}
+            </div>
+          </section>
+          <footer className="quiz-footer">
+            <button
+              disabled={current === 0}
+              onClick={() => setCurrent((x) => x - 1)}
+            >
+              <ArrowLeft /> Previous
+            </button>
+            {current < 9 ? (
+              <button
+                className="primary"
+                disabled={answers[current] === undefined}
+                onClick={() => setCurrent((x) => x + 1)}
+              >
+                Next question <ArrowRight />
+              </button>
+            ) : (
+              <button
+                className="primary"
+                disabled={Object.keys(answers).length < 10}
+                onClick={submit}
+              >
+                Submit quiz <Check />
+              </button>
+            )}
+          </footer>
+        </main>
+      )}
+      {mode === "result" && (
+        <main className="results-page">
+          <section className={`result-hero ${score === 10 ? "perfect" : ""}`}>
+            <div className="score-ring">
+              <b>{score * 10}%</b>
+              <span>{score}/10 correct</span>
+            </div>
+            <div>
+              <span>{score === 10 ? "LEVEL MASTERED" : "KEEP GOING"}</span>
+              <h1>
+                {score === 10
+                  ? "Perfect score!"
+                  : `${10 - score} answer${10 - score === 1 ? "" : "s"} to revisit.`}
+              </h1>
+              <p>
+                {score === 10
+                  ? "You’ve demonstrated complete understanding and unlocked the next level."
+                  : "Review the explanations below, revisit the lesson if needed, then retry. You need 100% to move forward."}
+              </p>
+              <div>
+                {score === 10 ? (
+                  next ? (
+                    <Link className="primary" href={`/learn/${next.slug}`}>
+                      Continue to level {topic.number + 1} <ArrowRight />
+                    </Link>
+                  ) : (
+                    <Link className="primary" href="/dashboard">
+                      View completed path <Check />
+                    </Link>
+                  )
+                ) : (
+                  <>
+                    <button className="primary" onClick={retry}>
+                      <RotateCcw /> Retry quiz
+                    </button>
+                    <button
+                      onClick={() => {
+                        setLessonPage(0);
+                        setMode("lesson");
+                      }}
+                    >
+                      <BookOpen /> Review lesson
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+          <section className="review">
+            <div className="review-head">
+              <div>
+                <span>ANSWER REVIEW</span>
+                <h2>Understand every answer</h2>
+              </div>
+              <p>
+                {score} correct · {10 - score} to review
+              </p>
+            </div>
+            {topic.questions.map((q, i) => {
+              const ok = answers[i] === q.answer;
+              return (
+                <article key={q.q} className={ok ? "correct" : "wrong"}>
+                  <div className="review-status">{ok ? <Check /> : <X />}</div>
+                  <div>
+                    <span>QUESTION {i + 1}</span>
+                    <h3>{q.q}</h3>
+                    {!ok && (
+                      <p className="your-answer">
+                        Your answer: <b>{q.options[answers[i]]}</b>
+                      </p>
+                    )}
+                    <p className="correct-answer">
+                      Correct answer: <b>{q.options[q.answer]}</b>
+                    </p>
+                    <p className="explanation">
+                      <Lightbulb />
+                      {q.explanation}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        </main>
+      )}
+    </div>
+  );
+}

@@ -1,26 +1,1153 @@
-export type Question={q:string;options:string[];answer:number;explanation:string};
-export type Topic={slug:string;number:number;title:string;strap:string;color:string;icon:string;duration:string;objectives:string[];sections:{title:string;body:string;callout?:string}[];questions:Question[]};
-const Q=(q:string,options:string[],answer:number,explanation:string):Question=>({q,options,answer,explanation});
-export const topics:Topic[]=[
-{slug:"wallet-portfolio",number:1,title:"Wallet & portfolio analysis",strap:"See the whole wallet, not just the headline balance.",color:"#18a96b",icon:"WalletCards",duration:"8 min",objectives:["Separate wallet value from available spending power","Read assets, positions, approvals, and history together","Use Aura insights without giving up custody"],sections:[
-{title:"A wallet is more than its headline balance",body:"The large number at the top of a wallet is only a snapshot. A complete portfolio view combines token balances, DeFi positions, token approvals and onchain transaction history. Aura interprets these pieces together so you can understand what you own, where it is deployed and which contracts have permission to use it. Aura works over your existing wallet: it does not take custody of your assets."},{title:"Read allocation before judging performance",body:"Allocation shows how exposure is distributed by asset, blockchain and protocol. Aura supports Ethereum and EVM networks including Base, Optimism and Arbitrum, so one portfolio can contain positions across several environments. If the portfolio rises 10%, do not stop at the gain: check debts, protocol exposure and concentration. A large share held in one asset, chain or protocol can make one adverse event affect the whole portfolio.",callout:"Portfolio value tells you what the wallet is worth now. Allocation and exposure show what could change it next."},{title:"Available tokens and protocol positions are different",body:"Liquid tokens in the wallet may be available to spend immediately. Supplied, staked or liquidity-pool assets sit inside protocol positions and can have withdrawal conditions or additional risks. Borrowed positions also introduce debt, while rewards may be earned but remain unclaimed. Separating these categories prevents the wallet balance from being mistaken for available spending power."},{title:"Permissions and history add essential context",body:"A token approval can authorize a smart contract to spend some or all of a token, so broad or unused approvals deserve review. Onchain history also reveals behavioral signals: recurring swaps, borrowing patterns, frequently used chains and other patterns in past wallet activity. These signals help Aura explain the account, but they are sensitive context and must be handled carefully."},{title:"Use Aura without giving up privacy or control",body:"Aura's local-first direction keeps the first interpretation layer in the user's environment where possible. Only information required for a task should be sent to remote processing, reducing how much raw wallet data leaves the device. To request analysis safely, connect your existing account, verify the chain and review every requested permission. Never provide a seed phrase, private key or exchange password. Aura can interpret and prepare actions, but the user keeps custody and gives final approval.",callout:"A legitimate portfolio analysis needs a public account connection and reviewed permissions—not your recovery secret."}],questions:[
-Q("Which data gives the most complete portfolio view?",["Only the native-token balance","Balances, DeFi positions, approvals and history","Only yesterday's transactions","A seed phrase and exchange password"],1,"A portfolio is a connected view of holdings, positions, permissions and activity."),
-Q("What does self-custodial mean in Aura's model?",["Aura owns the assets","An exchange holds every key","The user keeps control of the wallet and funds","Transactions need no approval"],2,"Aura works on top of an existing wallet; control remains with the user."),
-Q("Why separate liquid tokens from supplied assets?",["Supplied assets may be locked in a protocol position","They always have different symbols","Liquid tokens have no price","Supplied assets cannot earn yield"],0,"Availability and protocol exposure differ even when the underlying asset is the same."),
-Q("What does chain allocation reveal?",["A wallet password","Where portfolio exposure is distributed","The next block producer","A guaranteed return"],1,"Chain allocation shows where assets and operational risks are concentrated."),
-Q("Why inspect token approvals?",["They can authorize contracts to spend tokens","They determine token color","They replace gas fees","They prove future profit"],0,"Approvals are permissions and may represent risk if broad or stale."),
-Q("Which is a behavioral signal?",["A token logo","Patterns in past wallet activity","A block's color","A hardware wallet box"],1,"Transaction patterns can inform interpretation but should be handled carefully."),
-Q("What is the privacy benefit of local-first interpretation?",["It publishes all balances","It reduces raw wallet data leaving the device","It removes user approval","It guarantees token prices"],1,"Local processing minimizes unnecessary data disclosure."),
-Q("A portfolio is up 10%. What should be checked next?",["Nothing else","Exposure, debts and concentration","Only the wallet name","The seed phrase"],1,"Headline value alone does not describe leverage or concentration risk."),
-Q("Which network set is natively associated with Aura's EVM support?",["Ethereum, Base, Optimism and Arbitrum","Only Bitcoin","Only Solana","No public chains"],0,"Aura states support for Ethereum and multiple EVM networks including Base, Optimism and Arbitrum."),
-Q("What is the safest way to request analysis?",["Share a seed phrase","Connect the existing account and review requested permissions","Send funds to an assistant","Disable approvals"],1,"A legitimate analysis never requires surrendering recovery secrets or custody.") ]},
-{slug:"position-tracking",number:2,title:"Position tracking",strap:"Follow what changes after assets enter a protocol.",color:"#2782e3",icon:"Activity",duration:"7 min",objectives:["Identify position components","Track collateral, debt and rewards","Recognize health changes early"],sections:[{title:"Positions have state",body:"A DeFi position is not a static token balance. Lending positions combine supplied collateral, borrowed value, interest and a health measure. Liquidity positions add pool share, fees and changing token composition."},{title:"Track the drivers",body:"Watch value, quantity, entry basis, accrued rewards, debt and protocol status. Cross-chain positions also need their source network and contract identified. A change in price can affect both profit and safety."},{title:"Turn monitoring into decisions",body:"Alerts should be tied to an action: investigate a falling health factor, claim meaningful rewards, or rebalance concentration. Aura can explain and prepare an action, but execution still requires the user’s approval.",callout:"An alert is useful only when it explains the changed variable and the possible response."}],questions:[
-Q("What makes a DeFi position different from a simple balance?",["It can include collateral, debt, yield or pool share","It has no value","It exists offchain only","It never changes"],0,"Protocol positions contain state beyond a token count."),Q("What should be tracked for a lending position?",["Collateral, debt, interest and health","Only logo","Only username","Mining hardware"],0,"Those variables determine value and liquidation safety."),Q("Why can a price drop threaten a borrower?",["It can reduce collateral value relative to debt","It changes email address","It removes all gas","It increases every reward"],0,"A weaker collateral ratio can approach liquidation thresholds."),Q("What does a liquidity-pool share represent?",["Ownership of a portion of pooled assets","A guaranteed fixed return","A wallet recovery phrase","A bridge receipt only"],0,"LP shares correspond to a portion of the pool and its fees."),Q("Which is a meaningful position alert?",["Health factor nearing a danger threshold","Token icon changed color","It is Tuesday","Wallet has a nickname"],0,"Health deterioration can require prompt review."),Q("Why record the source chain?",["The same asset can sit in different contracts and risk environments","Chains are identical","It creates profit","It replaces the contract address"],0,"Chain and contract context identify the actual position."),Q("What can accrued rewards change?",["The position's total return","The seed phrase","The chain's consensus","The user's email"],0,"Unclaimed incentives are part of economic performance."),Q("Who gives final approval for an Aura-prepared position action?",["The user","Aura without asking","A random validator","The token issuer"],0,"Aura prepares; the user explicitly approves execution."),Q("A good alert should include what?",["Changed variable, context and possible response","Only an emoji","A recovery phrase request","A guaranteed outcome"],0,"Context makes the alert actionable."),Q("Which metric best indicates leveraged-position safety?",["Health factor or collateral ratio","Token name length","Wallet age alone","Number of browser tabs"],0,"Collateralization metrics show proximity to liquidation.")]},
-{slug:"swaps-trading",number:3,title:"Swaps & trading",strap:"Compare routes, costs and outcomes before signing.",color:"#f28c28",icon:"ArrowLeftRight",duration:"9 min",objectives:["Read a swap quote","Understand slippage and price impact","Review approvals before trading"],sections:[{title:"A quote is a proposed outcome",body:"A swap quote names the input, expected output, route, network fee, protocol fees, price impact and deadline. Compare net received, not just a headline rate."},{title:"Slippage protects the boundary",body:"Slippage tolerance defines how far execution may move from the quote before reverting. Very low tolerance can fail in volatile markets; very high tolerance accepts a worse outcome and increases exposure to adverse execution."},{title:"Review before approve",body:"Confirm token addresses, chain, amount, spender approval and minimum received. Aura can route and prepare swaps or trades from a natural-language request, but it cannot execute without explicit user approval.",callout:"Simulation explains an expected result; your signature authorizes the real transaction."}],questions:[Q("What should be compared between swap routes?",["Net output after fees and price impact","Only the button color","Only route length","Wallet username"],0,"Net outcome captures the real cost."),Q("What is slippage tolerance?",["Maximum acceptable movement from the quote","A guaranteed gain","The gas token symbol","A login method"],0,"It sets an execution boundary."),Q("What can very high slippage allow?",["A materially worse execution price","Free gas forever","No token approval","Guaranteed output"],0,"A loose boundary can accept a poor fill."),Q("What is price impact?",["The trade's effect on the pool price","The wallet's battery use","Email delivery time","Bridge finality"],0,"Larger trades relative to liquidity move the market."),Q("Why verify the token contract?",["Different tokens can share names or symbols","It lowers every fee","It changes custody","It creates liquidity"],0,"The address identifies the real asset."),Q("What does minimum received express?",["The lowest output accepted at execution","The wallet balance","Maximum gas","A staking lock"],0,"It is the concrete output protection derived from slippage."),Q("What may require a separate transaction before an ERC-20 swap?",["Token approval","Email change","Bridge finality","NFT mint"],0,"A spender often needs an allowance before swapping."),Q("Who signs an Aura-prepared swap?",["The user","Aura silently","The liquidity pool","PayAI"],0,"The user retains final control."),Q("Why can a quote expire?",["Market and gas conditions change","Token names fade","Wallets stop existing","Blocks have passwords"],0,"Quotes depend on time-sensitive state."),Q("Which request is clearest?",["Swap 0.2 ETH to USDC on Base with 0.5% max slippage","Make me rich","Do anything","Use my seed phrase"],0,"Specific asset, amount, chain and constraint reduce ambiguity.")]},
-{slug:"bridging",number:4,title:"Bridging between chains",strap:"Move value with the right route, timing and destination.",color:"#a15bd5",icon:"Waypoints",duration:"8 min",objectives:["Distinguish bridging from swapping","Check destination requirements","Understand finality and route risk"],sections:[{title:"Bridges move chain context",body:"A bridge transfers or represents value from a source chain to a destination chain. It is not automatically a swap: the asset may remain economically the same while its chain and contract representation change."},{title:"Review both sides",body:"Confirm source and destination networks, token representation, recipient, fees, estimated time and minimum received. Keep enough source gas to submit and, where needed, destination gas to use the received asset."},{title:"Finality takes time",body:"Routes can use canonical messaging, liquidity providers or other mechanisms, each with different trust, cost and timing. Do not treat a source confirmation as proof that destination funds are ready.",callout:"Track the bridge transfer until the destination transaction is finalized."}],questions:[Q("What is the main purpose of a bridge?",["Move value between blockchain networks","Store email","Guarantee yield","Replace a wallet"],0,"Bridges connect chain environments."),Q("Is bridging always the same as swapping?",["No, the asset may remain economically the same","Yes, always","Only on weekends","Only for NFTs"],0,"Chain movement and asset exchange are distinct operations."),Q("What must be verified first?",["Source and destination chains","Screen brightness","Profile photo","Token popularity"],0,"A wrong network choice can strand or lose funds."),Q("Why keep source-chain gas?",["To pay for submitting required transactions","To change the token logo","To verify email","To create a password"],0,"The source operation needs network fees."),Q("When is a bridge complete?",["When funds are finalized on the destination","When the tab closes","Immediately after quote","When email arrives"],0,"Destination finality is the relevant completion state."),Q("What can differ by bridge route?",["Trust assumptions, fees and time","User's legal name","Token spelling only","Browser language"],0,"Bridge mechanisms have different risk and performance profiles."),Q("Why check destination token representation?",["Bridged and native versions may use different contracts","All contracts are identical","It removes finality","It guarantees liquidity"],0,"Contract identity matters for usability and liquidity."),Q("What should recipient verification prevent?",["Sending to the wrong address","Gas estimation","Price discovery","Email verification"],0,"The destination address is often irreversible."),Q("Can Aura bridge without the user's approval?",["No","Yes, at any time","Only large amounts","Only stablecoins"],0,"Execution-related actions require explicit approval."),Q("What is a sensible first bridge test?",["Send a small amount and confirm destination receipt","Send the entire portfolio","Ignore fees","Share a seed phrase"],0,"A small test validates the route and destination.")]},
-{slug:"yield-discovery",number:5,title:"Yield discovery",strap:"Look past APY to understand where returns come from.",color:"#e3b328",icon:"Sprout",duration:"9 min",objectives:["Separate base yield from incentives","Compare net, risk-adjusted opportunities","Spot unsustainable rewards"],sections:[{title:"Yield has a source",body:"Returns may come from borrower interest, trading fees, staking rewards or token incentives. Identify the source before comparing percentages. Incentive-heavy APY may fall when emissions or token prices change."},{title:"Compare like with like",body:"Account for lockups, withdrawal conditions, compounding assumptions, network fees, reward-token volatility and smart-contract exposure. The best headline APY is not necessarily the best net outcome."},{title:"Discovery before execution",body:"Aura can compare opportunities against wallet holdings and user constraints, then prepare the chosen deposit. Product revenue associated with Aura's wider ecosystem includes security and discovery deposits, recommendation boosting and premium features.",callout:"A yield percentage without a source, timeframe and risk description is incomplete."}],questions:[Q("Which can generate sustainable base yield?",["Borrower interest or trading fees","A token logo","An email address","A wallet nickname"],0,"Economic activity can fund returns."),Q("Why can incentive APY fall?",["Emissions or reward-token price can change","APY is fixed by definition","Wallets stop calculating","Gas becomes impossible"],0,"Incentive value is variable."),Q("What does net yield subtract?",["Fees and relevant costs","Only token decimals","The protocol name","Wallet age"],0,"Costs reduce realized return."),Q("Why inspect lockups?",["They limit when funds can be withdrawn","They guarantee profit","They remove contract risk","They verify identity"],0,"Liquidity constraints affect suitability."),Q("What makes two APYs hard to compare?",["Different compounding, timeframes and risks","Different font sizes","Same asset","Same chain"],0,"Calculation methods and exposures matter."),Q("What risk accompanies reward tokens?",["Their market value may fall","They cannot be transferred","They remove gas","They are always stable"],0,"Volatile rewards can erode realized yield."),Q("What should happen before a yield deposit executes?",["User reviews and approves the prepared transaction","Aura signs secretly","The seed phrase is uploaded","Every asset is bridged"],0,"The user controls execution."),Q("A 40% APY is mostly emissions. What is the key question?",["Are emissions and token value sustainable?","Is the card green?","Is the name short?","Can approval be skipped?"],0,"Return quality depends on its source."),Q("Which Aura ecosystem revenue source was named in the staking update?",["Security and discovery deposits","Printing seed phrases","Selling wallet keys","Block mining hardware"],0,"The update names security and discovery deposits among product-revenue sources."),Q("What is risk-adjusted comparison?",["Considering return together with loss and liquidity risks","Choosing the largest number","Ignoring fees","Assuming all protocols are equal"],0,"Expected return must be weighed against uncertainty and downside.")]},
-{slug:"risk-analysis",number:6,title:"Risk analysis",strap:"Turn uncertainty into checks you can act on.",color:"#e45757",icon:"ShieldCheck",duration:"10 min",objectives:["Map smart-contract and market risks","Understand privacy safeguards","Keep approval as the final control"],sections:[{title:"Risk has layers",body:"Review smart-contract, market, liquidity, oracle, bridge, governance and operational risks. Concentration can amplify any one failure. Audits are useful evidence, not a guarantee that code or integrations are bug-free."},{title:"Aura's security direction",body:"The inherited AdEx ecosystem and ADX contracts have a long operating history and third-party audits including CertiK. Aura is also setting up continuous AI-assisted code review to shorten the gap between code changes and security checks."},{title:"Privacy and approval",body:"Sensitive wallet context should stay local where possible; remote systems should receive only task-required data. Aura may assess and prepare swaps, bridges or trades, but the user must explicitly approve the final action.",callout:"Never share a seed phrase or private key. A legitimate assistant does not need it."}],questions:[Q("Does an audit guarantee a contract is safe?",["No, it reduces uncertainty but cannot remove all risk","Yes, forever","Only if fees are low","Only on Ethereum"],0,"Audits are evidence, not absolute protection."),Q("What does continuous review improve?",["The time between code changes and security checks","Token price certainty","Wallet custody transfer","Bridge speed"],0,"Ongoing review addresses evolving code."),Q("Which is market risk?",["Collateral price falls sharply","A typo in CSS","An email arrives late","A logo changes"],0,"Price changes can cause loss or liquidation."),Q("Which is smart-contract risk?",["A bug allows unintended fund movement","Reward price falls","Network fee rises","User forgets a lesson"],0,"Code defects are contract risk."),Q("Why is concentration risky?",["One failure can affect a large share of the portfolio","It lowers all prices","It removes approvals","It verifies identity"],0,"Concentrated exposure magnifies a single event."),Q("What should remote processing receive?",["Only data required for the task","Every raw wallet detail","The private key","The recovery phrase"],0,"Data minimization is central to Aura's stated privacy direction."),Q("What is the final execution safeguard?",["Explicit user approval","A colorful dashboard","Automatic signing","A social post"],0,"The final decision remains with the user."),Q("Which party audited ADX among those named by Aura?",["CertiK","PayAI","Quizlet","Vercel"],0,"Aura's security article names CertiK and other auditors."),Q("What secret should never be entered into an assistant?",["Seed phrase or private key","Public wallet address","Transaction hash","Token symbol"],0,"Recovery secrets provide control of funds."),Q("What does liquidity risk mean?",["Exiting may cause delay or a poor price","The wallet changes color","Email needs confirmation","A chain has blocks"],0,"Insufficient liquidity harms exit execution.")]},
-{slug:"transaction-preparation",number:7,title:"Transaction preparation",strap:"Know exactly what your wallet is being asked to sign.",color:"#087d72",icon:"FileCheck2",duration:"9 min",objectives:["Read simulation and calldata intent","Check gas, approvals and recipients","Distinguish preparation from execution"],sections:[{title:"Preparation turns intent into a proposal",body:"Aura can translate a request into one or more unsigned transactions. A useful preview explains the target contract, method, assets moving, approvals, recipient, expected result and network fees in human language."},{title:"Simulate, then verify",body:"Simulation estimates whether the current state will succeed and how balances may change. It is not a guarantee: onchain state, price and gas can move before inclusion. Check chain, nonce, deadline and minimum outputs."},{title:"Signing is the boundary",body:"Preparation does not move funds. The connected wallet displays the request and the user decides whether to sign. The PayAI integration adds verified x402 settlement when Aura needs paid tools, infrastructure or external services.",callout:"Read the effect, not only the transaction label."}],questions:[Q("Does preparing a transaction move funds?",["No, execution requires a signature and confirmation","Yes, instantly","Only for swaps","Only at night"],0,"Preparation creates a proposal, not execution."),Q("What should a transaction preview explain?",["Contract, method, assets, recipient and expected effect","Only a transaction name","The seed phrase","A guaranteed profit"],0,"A human-readable preview supports informed approval."),Q("What does simulation provide?",["An estimate based on current state","A permanent guarantee","A private key","A completed bridge"],0,"State can change after simulation."),Q("Why check the chain?",["Signing on the wrong network can produce the wrong or failed action","It changes email","All chains are identical","It guarantees low fees"],0,"Network context is fundamental."),Q("What is gas used for?",["Paying the network to process computation","Setting slippage","Verifying an email","Creating a token logo"],0,"Gas compensates network execution."),Q("What does an ERC-20 approval authorize?",["A spender to use tokens within an allowance","Aura to know a password","A bridge to finalize instantly","A user to avoid gas"],0,"Allowances grant token spending permission."),Q("What might invalidate an old simulation?",["Onchain state or price changes","A page scroll","A profile image","Lesson progress"],0,"Simulations are time-sensitive."),Q("What does PayAI facilitate for Aura?",["Verification and settlement of x402 payments","Wallet seed storage","Guaranteed trades","Block production"],0,"PayAI handles the payment layer for paid external services."),Q("What is x402 connected to?",["HTTP 402 Payment Required and digital-currency payments","An NFT image format","A consensus algorithm","An email protocol"],0,"x402 enables API/content payment flows."),Q("What is the last step before execution?",["The user reviews and explicitly approves","Aura hides the details","A random service signs","The quiz auto-signs"],0,"The user remains the final authority.")]},
-{slug:"multi-step-workflows",number:8,title:"Multi-step workflows",strap:"Coordinate approvals, dependencies and recovery across a complete goal.",color:"#5c5bd6",icon:"Workflow",duration:"11 min",objectives:["Break goals into dependent actions","Review every approval boundary","Track partial success and recovery"],sections:[{title:"Goals become ordered actions",body:"A workflow may require approval, swap, bridge, deposit and confirmation steps. Each step has prerequisites and outputs. The system should show the plan before execution and pause at signing boundaries."},{title:"Handle partial completion",body:"Onchain steps do not always succeed together. If a bridge completes but a deposit fails, the workflow should report where funds are now and offer a safe next action rather than repeating completed steps."},{title:"Aura example: ADX migration",body:"Aura's staking migration can turn “Migrate my existing adx-staking position into stkADX” into the required transactions. The user still approves them. The new unified pool adds product access, revenue sharing and governance rights; the migration article describes a penalty-free grace period followed by a daily-increasing penalty window.",callout:"Automation should reduce coordination work, never hide irreversible decisions."}],questions:[Q("What defines a multi-step workflow?",["Ordered actions with dependencies and shared goal","One static balance","A single email","A token logo"],0,"Later steps often rely on earlier outputs."),Q("When should the plan be shown?",["Before execution begins","Only after failure","Never","After funds leave"],0,"Preview supports informed decisions."),Q("What should happen at a signing boundary?",["Pause for explicit user approval","Sign automatically","Hide the contract","Share the private key"],0,"User approval remains mandatory."),Q("A bridge succeeds but deposit fails. What is correct?",["Report current fund location and resume from the failed step","Repeat the bridge blindly","Claim everything failed","Hide the result"],0,"Recovery must respect completed state."),Q("What can serve as a step prerequisite?",["Sufficient token allowance or balance","A green button","A profile photo","A quiz title"],0,"Transactions depend on state and permissions."),Q("What Aura prompt was given for staking migration?",["Migrate my existing adx-staking position into stkADX","Delete my wallet","Reveal my private key","Guarantee token price"],0,"The article provides this natural-language workflow example."),Q("What does the new unified staking model add?",["Product access, revenue sharing and governance rights","Free private keys","Guaranteed token price","No approvals"],0,"These are the benefits described in Aura's migration update."),Q("What followed the penalty-free migration grace period?",["A daily-increasing penalty window","Permanent free migration","Automatic wallet custody","An NFT auction"],0,"The update describes a penalty that rises daily up to a maximum."),Q("Why avoid repeating completed steps?",["It can duplicate transfers or costs","It changes fonts","It verifies email twice","It makes lessons shorter"],0,"Onchain actions can be irreversible and costly."),Q("What is the best workflow completion evidence?",["Confirmed final state for every required step","A loading spinner","A prepared transaction only","A social post"],0,"Completion depends on verified outcomes, not just intent.")]}
+export type Question = {
+  q: string;
+  options: string[];
+  answer: number;
+  explanation: string;
+};
+export type Topic = {
+  slug: string;
+  number: number;
+  title: string;
+  strap: string;
+  color: string;
+  icon: string;
+  duration: string;
+  objectives: string[];
+  sections: { title: string; body: string; callout?: string }[];
+  questions: Question[];
+};
+const Q = (
+  q: string,
+  options: string[],
+  answer: number,
+  explanation: string,
+): Question => ({ q, options, answer, explanation });
+export const topics: Topic[] = [
+  {
+    slug: "wallet-portfolio",
+    number: 1,
+    title: "Wallet & portfolio analysis",
+    strap: "See the whole wallet, not just the headline balance.",
+    color: "#18a96b",
+    icon: "WalletCards",
+    duration: "8 min",
+    objectives: [
+      "Separate wallet value from available spending power",
+      "Read assets, positions, approvals, and history together",
+      "Use Aura insights without giving up custody",
+    ],
+    sections: [
+      {
+        title: "A wallet is more than its headline balance",
+        body: "The large number at the top of a wallet is only a snapshot. A complete portfolio view combines token balances, DeFi positions, token approvals and onchain transaction history. Aura interprets these pieces together so you can understand what you own, where it is deployed and which contracts have permission to use it. Aura works over your existing wallet: it does not take custody of your assets.",
+      },
+      {
+        title: "Read allocation before judging performance",
+        body: "Allocation shows how exposure is distributed by asset, blockchain and protocol. Aura supports Ethereum and EVM networks including Base, Optimism and Arbitrum, so one portfolio can contain positions across several environments. If the portfolio rises 10%, do not stop at the gain: check debts, protocol exposure and concentration. A large share held in one asset, chain or protocol can make one adverse event affect the whole portfolio.",
+        callout:
+          "Portfolio value tells you what the wallet is worth now. Allocation and exposure show what could change it next.",
+      },
+      {
+        title: "Available tokens and protocol positions are different",
+        body: "Liquid tokens in the wallet may be available to spend immediately. Supplied, staked or liquidity-pool assets sit inside protocol positions and can have withdrawal conditions or additional risks. Borrowed positions also introduce debt, while rewards may be earned but remain unclaimed. Separating these categories prevents the wallet balance from being mistaken for available spending power.",
+      },
+      {
+        title: "Permissions and history add essential context",
+        body: "A token approval can authorize a smart contract to spend some or all of a token, so broad or unused approvals deserve review. Onchain history also reveals behavioral signals: recurring swaps, borrowing patterns, frequently used chains and other patterns in past wallet activity. These signals help Aura explain the account, but they are sensitive context and must be handled carefully.",
+      },
+      {
+        title: "Use Aura without giving up privacy or control",
+        body: "Aura's local-first direction keeps the first interpretation layer in the user's environment where possible. Only information required for a task should be sent to remote processing, reducing how much raw wallet data leaves the device. To request analysis safely, connect your existing account, verify the chain and review every requested permission. Never provide a seed phrase, private key or exchange password. Aura can interpret and prepare actions, but the user keeps custody and gives final approval.",
+        callout:
+          "A legitimate portfolio analysis needs a public account connection and reviewed permissions—not your recovery secret.",
+      },
+    ],
+    questions: [
+      Q(
+        "Which data gives the most complete portfolio view?",
+        [
+          "Only the native-token balance",
+          "Balances, DeFi positions, approvals and history",
+          "Only yesterday's transactions",
+          "A seed phrase and exchange password",
+        ],
+        1,
+        "A portfolio is a connected view of holdings, positions, permissions and activity.",
+      ),
+      Q(
+        "What does self-custodial mean in Aura's model?",
+        [
+          "Aura owns the assets",
+          "An exchange holds every key",
+          "The user keeps control of the wallet and funds",
+          "Transactions need no approval",
+        ],
+        2,
+        "Aura works on top of an existing wallet; control remains with the user.",
+      ),
+      Q(
+        "Why separate liquid tokens from supplied assets?",
+        [
+          "Supplied assets may be locked in a protocol position",
+          "They always have different symbols",
+          "Liquid tokens have no price",
+          "Supplied assets cannot earn yield",
+        ],
+        0,
+        "Availability and protocol exposure differ even when the underlying asset is the same.",
+      ),
+      Q(
+        "What does chain allocation reveal?",
+        [
+          "A wallet password",
+          "Where portfolio exposure is distributed",
+          "The next block producer",
+          "A guaranteed return",
+        ],
+        1,
+        "Chain allocation shows where assets and operational risks are concentrated.",
+      ),
+      Q(
+        "Why inspect token approvals?",
+        [
+          "They can authorize contracts to spend tokens",
+          "They determine token color",
+          "They replace gas fees",
+          "They prove future profit",
+        ],
+        0,
+        "Approvals are permissions and may represent risk if broad or stale.",
+      ),
+      Q(
+        "Which is a behavioral signal?",
+        [
+          "A token logo",
+          "Patterns in past wallet activity",
+          "A block's color",
+          "A hardware wallet box",
+        ],
+        1,
+        "Transaction patterns can inform interpretation but should be handled carefully.",
+      ),
+      Q(
+        "What is the privacy benefit of local-first interpretation?",
+        [
+          "It publishes all balances",
+          "It reduces raw wallet data leaving the device",
+          "It removes user approval",
+          "It guarantees token prices",
+        ],
+        1,
+        "Local processing minimizes unnecessary data disclosure.",
+      ),
+      Q(
+        "A portfolio is up 10%. What should be checked next?",
+        [
+          "Nothing else",
+          "Exposure, debts and concentration",
+          "Only the wallet name",
+          "The seed phrase",
+        ],
+        1,
+        "Headline value alone does not describe leverage or concentration risk.",
+      ),
+      Q(
+        "Which network set is natively associated with Aura's EVM support?",
+        [
+          "Ethereum, Base, Optimism and Arbitrum",
+          "Only Bitcoin",
+          "Only Solana",
+          "No public chains",
+        ],
+        0,
+        "Aura states support for Ethereum and multiple EVM networks including Base, Optimism and Arbitrum.",
+      ),
+      Q(
+        "What is the safest way to request analysis?",
+        [
+          "Share a seed phrase",
+          "Connect the existing account and review requested permissions",
+          "Send funds to an assistant",
+          "Disable approvals",
+        ],
+        1,
+        "A legitimate analysis never requires surrendering recovery secrets or custody.",
+      ),
+    ],
+  },
+  {
+    slug: "position-tracking",
+    number: 2,
+    title: "Position tracking",
+    strap: "Follow what changes after assets enter a protocol.",
+    color: "#2782e3",
+    icon: "Activity",
+    duration: "7 min",
+    objectives: [
+      "Identify position components",
+      "Track collateral, debt and rewards",
+      "Recognize health changes early",
+    ],
+    sections: [
+      {
+        title: "Positions have state",
+        body: "A DeFi position is not a static token balance. Lending positions combine supplied collateral, borrowed value, interest and a health measure. Liquidity positions add pool share, fees and changing token composition.",
+      },
+      {
+        title: "Track the drivers",
+        body: "Watch value, quantity, entry basis, accrued rewards, debt and protocol status. Cross-chain positions also need their source network and contract identified. A change in price can affect both profit and safety.",
+      },
+      {
+        title: "Turn monitoring into decisions",
+        body: "Alerts should be tied to an action: investigate a falling health factor, claim meaningful rewards, or rebalance concentration. Aura can explain and prepare an action, but execution still requires the user’s approval.",
+        callout:
+          "An alert is useful only when it explains the changed variable and the possible response.",
+      },
+    ],
+    questions: [
+      Q(
+        "What makes a DeFi position different from a simple balance?",
+        [
+          "It can include collateral, debt, yield or pool share",
+          "It has no value",
+          "It exists offchain only",
+          "It never changes",
+        ],
+        0,
+        "Protocol positions contain state beyond a token count.",
+      ),
+      Q(
+        "What should be tracked for a lending position?",
+        [
+          "Collateral, debt, interest and health",
+          "Only logo",
+          "Only username",
+          "Mining hardware",
+        ],
+        0,
+        "Those variables determine value and liquidation safety.",
+      ),
+      Q(
+        "Why can a price drop threaten a borrower?",
+        [
+          "It can reduce collateral value relative to debt",
+          "It changes email address",
+          "It removes all gas",
+          "It increases every reward",
+        ],
+        0,
+        "A weaker collateral ratio can approach liquidation thresholds.",
+      ),
+      Q(
+        "What does a liquidity-pool share represent?",
+        [
+          "Ownership of a portion of pooled assets",
+          "A guaranteed fixed return",
+          "A wallet recovery phrase",
+          "A bridge receipt only",
+        ],
+        0,
+        "LP shares correspond to a portion of the pool and its fees.",
+      ),
+      Q(
+        "Which is a meaningful position alert?",
+        [
+          "Health factor nearing a danger threshold",
+          "Token icon changed color",
+          "It is Tuesday",
+          "Wallet has a nickname",
+        ],
+        0,
+        "Health deterioration can require prompt review.",
+      ),
+      Q(
+        "Why record the source chain?",
+        [
+          "The same asset can sit in different contracts and risk environments",
+          "Chains are identical",
+          "It creates profit",
+          "It replaces the contract address",
+        ],
+        0,
+        "Chain and contract context identify the actual position.",
+      ),
+      Q(
+        "What can accrued rewards change?",
+        [
+          "The position's total return",
+          "The seed phrase",
+          "The chain's consensus",
+          "The user's email",
+        ],
+        0,
+        "Unclaimed incentives are part of economic performance.",
+      ),
+      Q(
+        "Who gives final approval for an Aura-prepared position action?",
+        [
+          "The user",
+          "Aura without asking",
+          "A random validator",
+          "The token issuer",
+        ],
+        0,
+        "Aura prepares; the user explicitly approves execution.",
+      ),
+      Q(
+        "A good alert should include what?",
+        [
+          "Changed variable, context and possible response",
+          "Only an emoji",
+          "A recovery phrase request",
+          "A guaranteed outcome",
+        ],
+        0,
+        "Context makes the alert actionable.",
+      ),
+      Q(
+        "Which metric best indicates leveraged-position safety?",
+        [
+          "Health factor or collateral ratio",
+          "Token name length",
+          "Wallet age alone",
+          "Number of browser tabs",
+        ],
+        0,
+        "Collateralization metrics show proximity to liquidation.",
+      ),
+    ],
+  },
+  {
+    slug: "swaps-trading",
+    number: 3,
+    title: "Swaps & trading",
+    strap: "Compare routes, costs and outcomes before signing.",
+    color: "#f28c28",
+    icon: "ArrowLeftRight",
+    duration: "9 min",
+    objectives: [
+      "Read a swap quote",
+      "Understand slippage and price impact",
+      "Review approvals before trading",
+    ],
+    sections: [
+      {
+        title: "A quote is a proposed outcome",
+        body: "A swap quote names the input, expected output, route, network fee, protocol fees, price impact and deadline. Compare net received, not just a headline rate.",
+      },
+      {
+        title: "Slippage protects the boundary",
+        body: "Slippage tolerance defines how far execution may move from the quote before reverting. Very low tolerance can fail in volatile markets; very high tolerance accepts a worse outcome and increases exposure to adverse execution.",
+      },
+      {
+        title: "Review before approve",
+        body: "Confirm token addresses, chain, amount, spender approval and minimum received. Aura can route and prepare swaps or trades from a natural-language request, but it cannot execute without explicit user approval.",
+        callout:
+          "Simulation explains an expected result; your signature authorizes the real transaction.",
+      },
+    ],
+    questions: [
+      Q(
+        "What should be compared between swap routes?",
+        [
+          "Net output after fees and price impact",
+          "Only the button color",
+          "Only route length",
+          "Wallet username",
+        ],
+        0,
+        "Net outcome captures the real cost.",
+      ),
+      Q(
+        "What is slippage tolerance?",
+        [
+          "Maximum acceptable movement from the quote",
+          "A guaranteed gain",
+          "The gas token symbol",
+          "A login method",
+        ],
+        0,
+        "It sets an execution boundary.",
+      ),
+      Q(
+        "What can very high slippage allow?",
+        [
+          "A materially worse execution price",
+          "Free gas forever",
+          "No token approval",
+          "Guaranteed output",
+        ],
+        0,
+        "A loose boundary can accept a poor fill.",
+      ),
+      Q(
+        "What is price impact?",
+        [
+          "The trade's effect on the pool price",
+          "The wallet's battery use",
+          "Email delivery time",
+          "Bridge finality",
+        ],
+        0,
+        "Larger trades relative to liquidity move the market.",
+      ),
+      Q(
+        "Why verify the token contract?",
+        [
+          "Different tokens can share names or symbols",
+          "It lowers every fee",
+          "It changes custody",
+          "It creates liquidity",
+        ],
+        0,
+        "The address identifies the real asset.",
+      ),
+      Q(
+        "What does minimum received express?",
+        [
+          "The lowest output accepted at execution",
+          "The wallet balance",
+          "Maximum gas",
+          "A staking lock",
+        ],
+        0,
+        "It is the concrete output protection derived from slippage.",
+      ),
+      Q(
+        "What may require a separate transaction before an ERC-20 swap?",
+        ["Token approval", "Email change", "Bridge finality", "NFT mint"],
+        0,
+        "A spender often needs an allowance before swapping.",
+      ),
+      Q(
+        "Who signs an Aura-prepared swap?",
+        ["The user", "Aura silently", "The liquidity pool", "PayAI"],
+        0,
+        "The user retains final control.",
+      ),
+      Q(
+        "Why can a quote expire?",
+        [
+          "Market and gas conditions change",
+          "Token names fade",
+          "Wallets stop existing",
+          "Blocks have passwords",
+        ],
+        0,
+        "Quotes depend on time-sensitive state.",
+      ),
+      Q(
+        "Which request is clearest?",
+        [
+          "Swap 0.2 ETH to USDC on Base with 0.5% max slippage",
+          "Make me rich",
+          "Do anything",
+          "Use my seed phrase",
+        ],
+        0,
+        "Specific asset, amount, chain and constraint reduce ambiguity.",
+      ),
+    ],
+  },
+  {
+    slug: "bridging",
+    number: 4,
+    title: "Bridging between chains",
+    strap: "Move value with the right route, timing and destination.",
+    color: "#a15bd5",
+    icon: "Waypoints",
+    duration: "8 min",
+    objectives: [
+      "Distinguish bridging from swapping",
+      "Check destination requirements",
+      "Understand finality and route risk",
+    ],
+    sections: [
+      {
+        title: "Bridges move chain context",
+        body: "A bridge transfers or represents value from a source chain to a destination chain. It is not automatically a swap: the asset may remain economically the same while its chain and contract representation change.",
+      },
+      {
+        title: "Review both sides",
+        body: "Confirm source and destination networks, token representation, recipient, fees, estimated time and minimum received. Keep enough source gas to submit and, where needed, destination gas to use the received asset.",
+      },
+      {
+        title: "Finality takes time",
+        body: "Routes can use canonical messaging, liquidity providers or other mechanisms, each with different trust, cost and timing. Do not treat a source confirmation as proof that destination funds are ready.",
+        callout:
+          "Track the bridge transfer until the destination transaction is finalized.",
+      },
+    ],
+    questions: [
+      Q(
+        "What is the main purpose of a bridge?",
+        [
+          "Move value between blockchain networks",
+          "Store email",
+          "Guarantee yield",
+          "Replace a wallet",
+        ],
+        0,
+        "Bridges connect chain environments.",
+      ),
+      Q(
+        "Is bridging always the same as swapping?",
+        [
+          "No, the asset may remain economically the same",
+          "Yes, always",
+          "Only on weekends",
+          "Only for NFTs",
+        ],
+        0,
+        "Chain movement and asset exchange are distinct operations.",
+      ),
+      Q(
+        "What must be verified first?",
+        [
+          "Source and destination chains",
+          "Screen brightness",
+          "Profile photo",
+          "Token popularity",
+        ],
+        0,
+        "A wrong network choice can strand or lose funds.",
+      ),
+      Q(
+        "Why keep source-chain gas?",
+        [
+          "To pay for submitting required transactions",
+          "To change the token logo",
+          "To verify email",
+          "To create a password",
+        ],
+        0,
+        "The source operation needs network fees.",
+      ),
+      Q(
+        "When is a bridge complete?",
+        [
+          "When funds are finalized on the destination",
+          "When the tab closes",
+          "Immediately after quote",
+          "When email arrives",
+        ],
+        0,
+        "Destination finality is the relevant completion state.",
+      ),
+      Q(
+        "What can differ by bridge route?",
+        [
+          "Trust assumptions, fees and time",
+          "User's legal name",
+          "Token spelling only",
+          "Browser language",
+        ],
+        0,
+        "Bridge mechanisms have different risk and performance profiles.",
+      ),
+      Q(
+        "Why check destination token representation?",
+        [
+          "Bridged and native versions may use different contracts",
+          "All contracts are identical",
+          "It removes finality",
+          "It guarantees liquidity",
+        ],
+        0,
+        "Contract identity matters for usability and liquidity.",
+      ),
+      Q(
+        "What should recipient verification prevent?",
+        [
+          "Sending to the wrong address",
+          "Gas estimation",
+          "Price discovery",
+          "Email verification",
+        ],
+        0,
+        "The destination address is often irreversible.",
+      ),
+      Q(
+        "Can Aura bridge without the user's approval?",
+        ["No", "Yes, at any time", "Only large amounts", "Only stablecoins"],
+        0,
+        "Execution-related actions require explicit approval.",
+      ),
+      Q(
+        "What is a sensible first bridge test?",
+        [
+          "Send a small amount and confirm destination receipt",
+          "Send the entire portfolio",
+          "Ignore fees",
+          "Share a seed phrase",
+        ],
+        0,
+        "A small test validates the route and destination.",
+      ),
+    ],
+  },
+  {
+    slug: "yield-discovery",
+    number: 5,
+    title: "Yield discovery",
+    strap: "Look past APY to understand where returns come from.",
+    color: "#e3b328",
+    icon: "Sprout",
+    duration: "9 min",
+    objectives: [
+      "Separate base yield from incentives",
+      "Compare net, risk-adjusted opportunities",
+      "Spot unsustainable rewards",
+    ],
+    sections: [
+      {
+        title: "Yield has a source",
+        body: "Returns may come from borrower interest, trading fees, staking rewards or token incentives. Identify the source before comparing percentages. Incentive-heavy APY may fall when emissions or token prices change.",
+      },
+      {
+        title: "Compare like with like",
+        body: "Account for lockups, withdrawal conditions, compounding assumptions, network fees, reward-token volatility and smart-contract exposure. The best headline APY is not necessarily the best net outcome.",
+      },
+      {
+        title: "Discovery before execution",
+        body: "Aura can compare opportunities against wallet holdings and user constraints, then prepare the chosen deposit. Product revenue associated with Aura's wider ecosystem includes security and discovery deposits, recommendation boosting and premium features.",
+        callout:
+          "A yield percentage without a source, timeframe and risk description is incomplete.",
+      },
+    ],
+    questions: [
+      Q(
+        "Which can generate sustainable base yield?",
+        [
+          "Borrower interest or trading fees",
+          "A token logo",
+          "An email address",
+          "A wallet nickname",
+        ],
+        0,
+        "Economic activity can fund returns.",
+      ),
+      Q(
+        "Why can incentive APY fall?",
+        [
+          "Emissions or reward-token price can change",
+          "APY is fixed by definition",
+          "Wallets stop calculating",
+          "Gas becomes impossible",
+        ],
+        0,
+        "Incentive value is variable.",
+      ),
+      Q(
+        "What does net yield subtract?",
+        [
+          "Fees and relevant costs",
+          "Only token decimals",
+          "The protocol name",
+          "Wallet age",
+        ],
+        0,
+        "Costs reduce realized return.",
+      ),
+      Q(
+        "Why inspect lockups?",
+        [
+          "They limit when funds can be withdrawn",
+          "They guarantee profit",
+          "They remove contract risk",
+          "They verify identity",
+        ],
+        0,
+        "Liquidity constraints affect suitability.",
+      ),
+      Q(
+        "What makes two APYs hard to compare?",
+        [
+          "Different compounding, timeframes and risks",
+          "Different font sizes",
+          "Same asset",
+          "Same chain",
+        ],
+        0,
+        "Calculation methods and exposures matter.",
+      ),
+      Q(
+        "What risk accompanies reward tokens?",
+        [
+          "Their market value may fall",
+          "They cannot be transferred",
+          "They remove gas",
+          "They are always stable",
+        ],
+        0,
+        "Volatile rewards can erode realized yield.",
+      ),
+      Q(
+        "What should happen before a yield deposit executes?",
+        [
+          "User reviews and approves the prepared transaction",
+          "Aura signs secretly",
+          "The seed phrase is uploaded",
+          "Every asset is bridged",
+        ],
+        0,
+        "The user controls execution.",
+      ),
+      Q(
+        "A 40% APY is mostly emissions. What is the key question?",
+        [
+          "Are emissions and token value sustainable?",
+          "Is the card green?",
+          "Is the name short?",
+          "Can approval be skipped?",
+        ],
+        0,
+        "Return quality depends on its source.",
+      ),
+      Q(
+        "Which Aura ecosystem revenue source was named in the staking update?",
+        [
+          "Security and discovery deposits",
+          "Printing seed phrases",
+          "Selling wallet keys",
+          "Block mining hardware",
+        ],
+        0,
+        "The update names security and discovery deposits among product-revenue sources.",
+      ),
+      Q(
+        "What is risk-adjusted comparison?",
+        [
+          "Considering return together with loss and liquidity risks",
+          "Choosing the largest number",
+          "Ignoring fees",
+          "Assuming all protocols are equal",
+        ],
+        0,
+        "Expected return must be weighed against uncertainty and downside.",
+      ),
+    ],
+  },
+  {
+    slug: "risk-analysis",
+    number: 6,
+    title: "Risk analysis",
+    strap: "Turn uncertainty into checks you can act on.",
+    color: "#e45757",
+    icon: "ShieldCheck",
+    duration: "10 min",
+    objectives: [
+      "Map smart-contract and market risks",
+      "Understand privacy safeguards",
+      "Keep approval as the final control",
+    ],
+    sections: [
+      {
+        title: "Risk has layers",
+        body: "Review smart-contract, market, liquidity, oracle, bridge, governance and operational risks. Concentration can amplify any one failure. Audits are useful evidence, not a guarantee that code or integrations are bug-free.",
+      },
+      {
+        title: "Aura's security direction",
+        body: "The inherited AdEx ecosystem and ADX contracts have a long operating history and third-party audits including CertiK. Aura is also setting up continuous AI-assisted code review to shorten the gap between code changes and security checks.",
+      },
+      {
+        title: "Privacy and approval",
+        body: "Sensitive wallet context should stay local where possible; remote systems should receive only task-required data. Aura may assess and prepare swaps, bridges or trades, but the user must explicitly approve the final action.",
+        callout:
+          "Never share a seed phrase or private key. A legitimate assistant does not need it.",
+      },
+    ],
+    questions: [
+      Q(
+        "Does an audit guarantee a contract is safe?",
+        [
+          "No, it reduces uncertainty but cannot remove all risk",
+          "Yes, forever",
+          "Only if fees are low",
+          "Only on Ethereum",
+        ],
+        0,
+        "Audits are evidence, not absolute protection.",
+      ),
+      Q(
+        "What does continuous review improve?",
+        [
+          "The time between code changes and security checks",
+          "Token price certainty",
+          "Wallet custody transfer",
+          "Bridge speed",
+        ],
+        0,
+        "Ongoing review addresses evolving code.",
+      ),
+      Q(
+        "Which is market risk?",
+        [
+          "Collateral price falls sharply",
+          "A typo in CSS",
+          "An email arrives late",
+          "A logo changes",
+        ],
+        0,
+        "Price changes can cause loss or liquidation.",
+      ),
+      Q(
+        "Which is smart-contract risk?",
+        [
+          "A bug allows unintended fund movement",
+          "Reward price falls",
+          "Network fee rises",
+          "User forgets a lesson",
+        ],
+        0,
+        "Code defects are contract risk.",
+      ),
+      Q(
+        "Why is concentration risky?",
+        [
+          "One failure can affect a large share of the portfolio",
+          "It lowers all prices",
+          "It removes approvals",
+          "It verifies identity",
+        ],
+        0,
+        "Concentrated exposure magnifies a single event.",
+      ),
+      Q(
+        "What should remote processing receive?",
+        [
+          "Only data required for the task",
+          "Every raw wallet detail",
+          "The private key",
+          "The recovery phrase",
+        ],
+        0,
+        "Data minimization is central to Aura's stated privacy direction.",
+      ),
+      Q(
+        "What is the final execution safeguard?",
+        [
+          "Explicit user approval",
+          "A colorful dashboard",
+          "Automatic signing",
+          "A social post",
+        ],
+        0,
+        "The final decision remains with the user.",
+      ),
+      Q(
+        "Which party audited ADX among those named by Aura?",
+        ["CertiK", "PayAI", "Quizlet", "Vercel"],
+        0,
+        "Aura's security article names CertiK and other auditors.",
+      ),
+      Q(
+        "What secret should never be entered into an assistant?",
+        [
+          "Seed phrase or private key",
+          "Public wallet address",
+          "Transaction hash",
+          "Token symbol",
+        ],
+        0,
+        "Recovery secrets provide control of funds.",
+      ),
+      Q(
+        "What does liquidity risk mean?",
+        [
+          "Exiting may cause delay or a poor price",
+          "The wallet changes color",
+          "Email needs confirmation",
+          "A chain has blocks",
+        ],
+        0,
+        "Insufficient liquidity harms exit execution.",
+      ),
+    ],
+  },
+  {
+    slug: "transaction-preparation",
+    number: 7,
+    title: "Transaction preparation",
+    strap: "Know exactly what your wallet is being asked to sign.",
+    color: "#087d72",
+    icon: "FileCheck2",
+    duration: "9 min",
+    objectives: [
+      "Read simulation and calldata intent",
+      "Check gas, approvals and recipients",
+      "Distinguish preparation from execution",
+    ],
+    sections: [
+      {
+        title: "Preparation turns intent into a proposal",
+        body: "Aura can translate a request into one or more unsigned transactions. A useful preview explains the target contract, method, assets moving, approvals, recipient, expected result and network fees in human language.",
+      },
+      {
+        title: "Simulate, then verify",
+        body: "Simulation estimates whether the current state will succeed and how balances may change. It is not a guarantee: onchain state, price and gas can move before inclusion. Check chain, nonce, deadline and minimum outputs.",
+      },
+      {
+        title: "Signing is the boundary",
+        body: "Preparation does not move funds. The connected wallet displays the request and the user decides whether to sign. The PayAI integration adds verified x402 settlement when Aura needs paid tools, infrastructure or external services.",
+        callout: "Read the effect, not only the transaction label.",
+      },
+    ],
+    questions: [
+      Q(
+        "Does preparing a transaction move funds?",
+        [
+          "No, execution requires a signature and confirmation",
+          "Yes, instantly",
+          "Only for swaps",
+          "Only at night",
+        ],
+        0,
+        "Preparation creates a proposal, not execution.",
+      ),
+      Q(
+        "What should a transaction preview explain?",
+        [
+          "Contract, method, assets, recipient and expected effect",
+          "Only a transaction name",
+          "The seed phrase",
+          "A guaranteed profit",
+        ],
+        0,
+        "A human-readable preview supports informed approval.",
+      ),
+      Q(
+        "What does simulation provide?",
+        [
+          "An estimate based on current state",
+          "A permanent guarantee",
+          "A private key",
+          "A completed bridge",
+        ],
+        0,
+        "State can change after simulation.",
+      ),
+      Q(
+        "Why check the chain?",
+        [
+          "Signing on the wrong network can produce the wrong or failed action",
+          "It changes email",
+          "All chains are identical",
+          "It guarantees low fees",
+        ],
+        0,
+        "Network context is fundamental.",
+      ),
+      Q(
+        "What is gas used for?",
+        [
+          "Paying the network to process computation",
+          "Setting slippage",
+          "Verifying an email",
+          "Creating a token logo",
+        ],
+        0,
+        "Gas compensates network execution.",
+      ),
+      Q(
+        "What does an ERC-20 approval authorize?",
+        [
+          "A spender to use tokens within an allowance",
+          "Aura to know a password",
+          "A bridge to finalize instantly",
+          "A user to avoid gas",
+        ],
+        0,
+        "Allowances grant token spending permission.",
+      ),
+      Q(
+        "What might invalidate an old simulation?",
+        [
+          "Onchain state or price changes",
+          "A page scroll",
+          "A profile image",
+          "Lesson progress",
+        ],
+        0,
+        "Simulations are time-sensitive.",
+      ),
+      Q(
+        "What does PayAI facilitate for Aura?",
+        [
+          "Verification and settlement of x402 payments",
+          "Wallet seed storage",
+          "Guaranteed trades",
+          "Block production",
+        ],
+        0,
+        "PayAI handles the payment layer for paid external services.",
+      ),
+      Q(
+        "What is x402 connected to?",
+        [
+          "HTTP 402 Payment Required and digital-currency payments",
+          "An NFT image format",
+          "A consensus algorithm",
+          "An email protocol",
+        ],
+        0,
+        "x402 enables API/content payment flows.",
+      ),
+      Q(
+        "What is the last step before execution?",
+        [
+          "The user reviews and explicitly approves",
+          "Aura hides the details",
+          "A random service signs",
+          "The quiz auto-signs",
+        ],
+        0,
+        "The user remains the final authority.",
+      ),
+    ],
+  },
+  {
+    slug: "multi-step-workflows",
+    number: 8,
+    title: "Multi-step workflows",
+    strap:
+      "Coordinate approvals, dependencies and recovery across a complete goal.",
+    color: "#5c5bd6",
+    icon: "Workflow",
+    duration: "11 min",
+    objectives: [
+      "Break goals into dependent actions",
+      "Review every approval boundary",
+      "Track partial success and recovery",
+    ],
+    sections: [
+      {
+        title: "Goals become ordered actions",
+        body: "A workflow may require approval, swap, bridge, deposit and confirmation steps. Each step has prerequisites and outputs. The system should show the plan before execution and pause at signing boundaries.",
+      },
+      {
+        title: "Handle partial completion",
+        body: "Onchain steps do not always succeed together. If a bridge completes but a deposit fails, the workflow should report where funds are now and offer a safe next action rather than repeating completed steps.",
+      },
+      {
+        title: "Aura example: ADX migration",
+        body: "Aura's staking migration can turn “Migrate my existing adx-staking position into stkADX” into the required transactions. The user still approves them. The new unified pool adds product access, revenue sharing and governance rights; the migration article describes a penalty-free grace period followed by a daily-increasing penalty window.",
+        callout:
+          "Automation should reduce coordination work, never hide irreversible decisions.",
+      },
+    ],
+    questions: [
+      Q(
+        "What defines a multi-step workflow?",
+        [
+          "Ordered actions with dependencies and shared goal",
+          "One static balance",
+          "A single email",
+          "A token logo",
+        ],
+        0,
+        "Later steps often rely on earlier outputs.",
+      ),
+      Q(
+        "When should the plan be shown?",
+        [
+          "Before execution begins",
+          "Only after failure",
+          "Never",
+          "After funds leave",
+        ],
+        0,
+        "Preview supports informed decisions.",
+      ),
+      Q(
+        "What should happen at a signing boundary?",
+        [
+          "Pause for explicit user approval",
+          "Sign automatically",
+          "Hide the contract",
+          "Share the private key",
+        ],
+        0,
+        "User approval remains mandatory.",
+      ),
+      Q(
+        "A bridge succeeds but deposit fails. What is correct?",
+        [
+          "Report current fund location and resume from the failed step",
+          "Repeat the bridge blindly",
+          "Claim everything failed",
+          "Hide the result",
+        ],
+        0,
+        "Recovery must respect completed state.",
+      ),
+      Q(
+        "What can serve as a step prerequisite?",
+        [
+          "Sufficient token allowance or balance",
+          "A green button",
+          "A profile photo",
+          "A quiz title",
+        ],
+        0,
+        "Transactions depend on state and permissions.",
+      ),
+      Q(
+        "What Aura prompt was given for staking migration?",
+        [
+          "Migrate my existing adx-staking position into stkADX",
+          "Delete my wallet",
+          "Reveal my private key",
+          "Guarantee token price",
+        ],
+        0,
+        "The article provides this natural-language workflow example.",
+      ),
+      Q(
+        "What does the new unified staking model add?",
+        [
+          "Product access, revenue sharing and governance rights",
+          "Free private keys",
+          "Guaranteed token price",
+          "No approvals",
+        ],
+        0,
+        "These are the benefits described in Aura's migration update.",
+      ),
+      Q(
+        "What followed the penalty-free migration grace period?",
+        [
+          "A daily-increasing penalty window",
+          "Permanent free migration",
+          "Automatic wallet custody",
+          "An NFT auction",
+        ],
+        0,
+        "The update describes a penalty that rises daily up to a maximum.",
+      ),
+      Q(
+        "Why avoid repeating completed steps?",
+        [
+          "It can duplicate transfers or costs",
+          "It changes fonts",
+          "It verifies email twice",
+          "It makes lessons shorter",
+        ],
+        0,
+        "Onchain actions can be irreversible and costly.",
+      ),
+      Q(
+        "What is the best workflow completion evidence?",
+        [
+          "Confirmed final state for every required step",
+          "A loading spinner",
+          "A prepared transaction only",
+          "A social post",
+        ],
+        0,
+        "Completion depends on verified outcomes, not just intent.",
+      ),
+    ],
+  },
 ];
-export const getTopic=(slug:string)=>topics.find(t=>t.slug===slug);
+export const getTopic = (slug: string) => topics.find((t) => t.slug === slug);
