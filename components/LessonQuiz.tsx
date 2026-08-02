@@ -130,8 +130,8 @@ export function LessonQuiz({
                     <Lightbulb />
                     <p>
                       <b>Grounded in Aura’s product material.</b> This lesson
-                      uses heyAura’s published product, security and workflow
-                      information, expanded with core Web3 concepts.
+                      uses only heyAura’s official website and published
+                      product, security, payment and workflow materials.
                     </p>
                   </div>
                 </>

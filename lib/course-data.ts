@@ -38,6 +38,11 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Meet Aura: the AI assistant in your wallet",
+        body: "heyAura describes itself as a fully autonomous AI assistant integrated directly into a Web3 wallet. It is designed to turn complex crypto activity into a conversation and provide personalized insights and clearer actions. A user can describe what they want to do, while Aura interprets wallet context and helps move from understanding to an action. The wallet remains the user's: Aura works on top of the existing account and cannot act without explicit approval.",
+        callout: "Your wallet, your rules, Aura insights.",
+      },
+      {
         title: "A wallet is more than its headline balance",
         body: "The large number at the top of a wallet is only a snapshot. A complete portfolio view combines token balances, DeFi positions, token approvals and onchain transaction history. Aura interprets these pieces together so you can understand what you own, where it is deployed and which contracts have permission to use it. Aura works over your existing wallet: it does not take custody of your assets.",
       },
@@ -64,15 +69,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "Which data gives the most complete portfolio view?",
+        "How does Aura officially describe the product?",
         [
-          "Only the native-token balance",
-          "Balances, DeFi positions, approvals and history",
-          "Only yesterday's transactions",
-          "A seed phrase and exchange password",
+          "A centralized exchange",
+          "A fully autonomous AI assistant integrated into a Web3 wallet",
+          "A hardware wallet manufacturer",
+          "A blockchain network",
         ],
         1,
-        "A portfolio is a connected view of holdings, positions, permissions and activity.",
+        "Aura's official site describes it as a fully autonomous AI assistant integrated directly into a Web3 wallet.",
       ),
       Q(
         "What does self-custodial mean in Aura's model?",
@@ -190,6 +195,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Aura monitors while the user is away",
+        body: "Aura's official product page says the AI assistant can monitor a portfolio, resurface opportunities and help the user act even when they are away. Its monitoring covers portfolio changes, new yield opportunities and risk signals. This is why position tracking in Aura is not just a static list: the assistant is intended to keep watching relevant wallet context and turn changes into personalized insights.",
+        callout:
+          "Aura's AI monitoring is designed to resurface portfolio changes, opportunities and risk signals.",
+      },
+      {
         title: "Positions have state",
         body: "A DeFi position is not a static token balance. Lending positions combine supplied collateral, borrowed value, interest and a health measure. Liquidity positions add pool share, fees and changing token composition.",
       },
@@ -206,15 +217,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "What makes a DeFi position different from a simple balance?",
+        "What can Aura's AI monitoring resurface?",
         [
-          "It can include collateral, debt, yield or pool share",
-          "It has no value",
-          "It exists offchain only",
-          "It never changes",
+          "Portfolio changes, opportunities and risk signals",
+          "Only password reminders",
+          "Social-media likes",
+          "Guaranteed profits",
         ],
         0,
-        "Protocol positions contain state beyond a token count.",
+        "Aura says its assistant can monitor a portfolio and resurface opportunities, portfolio changes and risk signals.",
       ),
       Q(
         "What should be tracked for a lending position?",
@@ -332,6 +343,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Trading through conversation",
+        body: "Aura's official site says users can send, swap or trade simply by describing what they want to do. The AI assistant turns the request into clearer actions and helps get it done from the wallet. This natural-language layer reduces complexity, but it does not replace user control: execution-related actions still require the user's explicit approval.",
+        callout:
+          "Aura can interpret the request and prepare the action; the user approves execution.",
+      },
+      {
         title: "A quote is a proposed outcome",
         body: "A swap quote names the input, expected output, route, network fee, protocol fees, price impact and deadline. Compare net received, not just a headline rate.",
       },
@@ -348,15 +365,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "What should be compared between swap routes?",
+        "How does Aura let a user request a swap or trade?",
         [
-          "Net output after fees and price impact",
-          "Only the button color",
-          "Only route length",
-          "Wallet username",
+          "By describing what they want to do",
+          "By surrendering their wallet",
+          "Only by writing contract code",
+          "By sending Aura a private key",
         ],
         0,
-        "Net outcome captures the real cost.",
+        "Aura's official site says users can send, swap or trade by simply describing what they want to do.",
       ),
       Q(
         "What is slippage tolerance?",
@@ -464,6 +481,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Aura's cross-chain assistant",
+        body: "Aura presents instant swaps and bridges as part of effortless portfolio management and describes a one-click bridge for cross-chain assets. The AI assistant helps translate the user's intended movement into a clearer action across supported EVM networks. Aura's official network list includes Ethereum, Base, Optimism, Arbitrum, Scroll, BNB Chain and Gnosis, while Bitcoin and Solana support are described as planned.",
+        callout:
+          "Aura simplifies the bridge flow, but the user still gives final approval.",
+      },
+      {
         title: "Bridges move chain context",
         body: "A bridge transfers or represents value from a source chain to a destination chain. It is not automatically a swap: the asset may remain economically the same while its chain and contract representation change.",
       },
@@ -480,15 +503,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "What is the main purpose of a bridge?",
+        "Which bridge experience does Aura advertise?",
         [
-          "Move value between blockchain networks",
-          "Store email",
-          "Guarantee yield",
-          "Replace a wallet",
+          "A one-click bridge for cross-chain assets",
+          "A bridge requiring custody transfer",
+          "A Bitcoin-only bridge already live",
+          "A bridge without user approval",
         ],
         0,
-        "Bridges connect chain environments.",
+        "Aura's official product page presents a one-click bridge for cross-chain assets.",
       ),
       Q(
         "Is bridging always the same as swapping?",
@@ -601,6 +624,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Smart Yield is AI-driven discovery",
+        body: "Aura calls its yield feature Smart Yield: AI-driven discovery of the best APY across chains. The assistant can monitor for new yield opportunities, resurface them and help the user act. Aura places this alongside portfolio management, swaps, bridges and built-in risk protection, so yield discovery is presented as one part of an AI-assisted wallet experience rather than a separate generic search tool.",
+        callout:
+          "Aura's published promise is AI-driven APY discovery across chains.",
+      },
+      {
         title: "Yield has a source",
         body: "Returns may come from borrower interest, trading fees, staking rewards or token incentives. Identify the source before comparing percentages. Incentive-heavy APY may fall when emissions or token prices change.",
       },
@@ -617,15 +646,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "Which can generate sustainable base yield?",
+        "What is Aura's Smart Yield feature?",
         [
-          "Borrower interest or trading fees",
-          "A token logo",
-          "An email address",
-          "A wallet nickname",
+          "AI-driven discovery of the best APY across chains",
+          "A guaranteed fixed return",
+          "A separate hardware device",
+          "A password manager",
         ],
         0,
-        "Economic activity can fund returns.",
+        "Aura officially describes Smart Yield as AI-driven discovery of the best APY across chains.",
       ),
       Q(
         "Why can incentive APY fall?",
@@ -743,6 +772,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Why AI security and privacy matter to Aura",
+        body: "Aura's AI works with wallet onchain history, portfolio state and transaction preparation. It can help users understand assets, assess risk, compare opportunities and prepare actions. Aura therefore describes security as careful code review, clear approval flows and tighter wallet-data handling. Its continuous AI-assisted review checks the application code as it changes, shortening the gap between a code change and a security check.",
+        callout:
+          "Aura uses AI both in the wallet assistant and as an added layer of continuous code review.",
+      },
+      {
         title: "Risk has layers",
         body: "Review smart-contract, market, liquidity, oracle, bridge, governance and operational risks. Concentration can amplify any one failure. Audits are useful evidence, not a guarantee that code or integrations are bug-free.",
       },
@@ -759,15 +794,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "Does an audit guarantee a contract is safe?",
+        "How does Aura use AI in its code-review process?",
         [
-          "No, it reduces uncertainty but cannot remove all risk",
-          "Yes, forever",
-          "Only if fees are low",
-          "Only on Ethereum",
+          "It continuously reviews application code as it changes",
+          "It guarantees that bugs are impossible",
+          "It reviews only wallet balances",
+          "It removes the need for authentication",
         ],
         0,
-        "Audits are evidence, not absolute protection.",
+        "Aura is setting up continuous AI-assisted review to shorten the gap between code changes and security checks.",
       ),
       Q(
         "What does continuous review improve?",
@@ -880,6 +915,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "From an AI request to a prepared transaction",
+        body: "Aura's assistant connects understanding with action. It works with wallet state and transaction preparation, allowing a user to describe an intended send, swap or trade conversationally. Aura can prepare the execution-related action, but the official security model keeps user approval as the final phase. Preparation by the AI is therefore not permission to move funds.",
+        callout:
+          "The assistant prepares; the connected wallet asks the user to approve.",
+      },
+      {
         title: "Preparation turns intent into a proposal",
         body: "Aura can translate a request into one or more unsigned transactions. A useful preview explains the target contract, method, assets moving, approvals, recipient, expected result and network fees in human language.",
       },
@@ -895,15 +936,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "Does preparing a transaction move funds?",
+        "What is the boundary between Aura's AI preparation and execution?",
         [
-          "No, execution requires a signature and confirmation",
-          "Yes, instantly",
-          "Only for swaps",
-          "Only at night",
+          "The user must explicitly approve the action",
+          "Aura executes every prepared action automatically",
+          "PayAI replaces user approval",
+          "Preparation transfers wallet custody",
         ],
         0,
-        "Preparation creates a proposal, not execution.",
+        "Aura can prepare execution-related actions, but its official security model keeps user approval as the final phase.",
       ),
       Q(
         "What should a transaction preview explain?",
@@ -1022,6 +1063,12 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
+        title: "Aura as an agent-driven workflow",
+        body: "Aura is moving toward agent-driven workflows: the AI assistant can interpret a goal, work with wallet data and transaction routing, prepare actions and interact with services. The official ADX migration example turns the prompt “Migrate my existing adx-staking position into stkADX” into the required flow. Aura handles the coordination, while the user approves the transactions.",
+        callout:
+          "Agent-driven does not mean approval-free: the final decision remains with the user.",
+      },
+      {
         title: "Goals become ordered actions",
         body: "A workflow may require approval, swap, bridge, deposit and confirmation steps. Each step has prerequisites and outputs. The system should show the plan before execution and pause at signing boundaries.",
       },
@@ -1038,15 +1085,15 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "What defines a multi-step workflow?",
+        "What does Aura do with the ADX migration prompt?",
         [
-          "Ordered actions with dependencies and shared goal",
-          "One static balance",
-          "A single email",
-          "A token logo",
+          "Handles the workflow while the user approves the transactions",
+          "Takes custody of the staked position",
+          "Skips every approval",
+          "Guarantees the ADX market price",
         ],
         0,
-        "Later steps often rely on earlier outputs.",
+        "Aura's official migration guide says Aura handles the migration flow and the user approves the transactions.",
       ),
       Q(
         "When should the plan be shown?",
