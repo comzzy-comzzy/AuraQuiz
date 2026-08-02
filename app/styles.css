@@ -1955,6 +1955,30 @@ button {
   border-radius: 9px;
   font: inherit;
 }
+.avatar-upload > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px dashed #7fc5a3;
+  border-radius: 10px;
+  background: #f1fbf6;
+  color: var(--green-dark);
+  cursor: pointer;
+  font-weight: 700;
+}
+.avatar-upload > span svg {
+  width: 20px;
+}
+.avatar-upload input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
 .profile-form > small {
   color: #6b7771;
   line-height: 1.5;

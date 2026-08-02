@@ -9,6 +9,7 @@ import {
   Clock3,
   LockKeyhole,
   LogOut,
+  ImageUp,
   Save,
   Trophy,
   UserRound,
@@ -33,7 +34,8 @@ export function DashboardClient({
   const [passed, setPassed] = useState<string[]>(initialProgress);
   const [profileOpen, setProfileOpen] = useState(false);
   const [name, setName] = useState(profile.name);
-  const [avatarUrl, setAvatarUrl] = useState(profile.avatarUrl);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState("");
   const [savedProfile, setSavedProfile] = useState(profile);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -61,6 +63,12 @@ export function DashboardClient({
     void syncLocalProgress();
   }, [email, initialProgress]);
 
+  useEffect(() => {
+    return () => {
+      if (avatarPreview) URL.revokeObjectURL(avatarPreview);
+    };
+  }, [avatarPreview]);
+
   const percent = Math.round((passed.length / topics.length) * 100);
   const currentIndex = topics.findIndex(
     (topic) => !passed.includes(topic.slug),
@@ -78,21 +86,47 @@ export function DashboardClient({
     setSaving(true);
     setMessage("");
     const cleanName = name.trim();
-    const cleanAvatar = avatarUrl.trim();
-    const { error } = await createClient().auth.updateUser({
-      data: { full_name: cleanName, avatar_url: cleanAvatar },
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      setSaving(false);
+      return setMessage("Your session expired. Please sign in again.");
+    }
+    let nextAvatarUrl = savedProfile.avatarUrl;
+    if (avatarFile) {
+      const { error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(`${user.id}/avatar`, avatarFile, {
+          contentType: avatarFile.type,
+          upsert: true,
+        });
+      if (uploadError) {
+        setSaving(false);
+        return setMessage(uploadError.message);
+      }
+      const { data } = supabase.storage
+        .from("avatars")
+        .getPublicUrl(`${user.id}/avatar`);
+      nextAvatarUrl = `${data.publicUrl}?v=${Date.now()}`;
+    }
+    const { error } = await supabase.auth.updateUser({
+      data: { full_name: cleanName, avatar_url: nextAvatarUrl },
     });
     setSaving(false);
     if (error) return setMessage(error.message);
-    setSavedProfile({ name: cleanName, avatarUrl: cleanAvatar });
+    setSavedProfile({ name: cleanName, avatarUrl: nextAvatarUrl });
+    setAvatarFile(null);
+    setAvatarPreview("");
     setMessage("Profile updated.");
   }
 
   const avatar = (className = "") =>
-    savedProfile.avatarUrl ? (
+    avatarPreview || savedProfile.avatarUrl ? (
       <img
         className={className}
-        src={savedProfile.avatarUrl}
+        src={avatarPreview || savedProfile.avatarUrl}
         alt={`${displayName}'s profile`}
       />
     ) : (
@@ -334,19 +368,38 @@ export function DashboardClient({
                   placeholder="Your name"
                 />
               </label>
-              <label>
-                Profile picture URL
+              <label className="avatar-upload">
+                Profile picture
+                <span>
+                  <ImageUp />
+                  {avatarFile
+                    ? avatarFile.name
+                    : "Choose from gallery or files"}
+                </span>
                 <input
-                  type="url"
-                  value={avatarUrl}
-                  onChange={(event) => setAvatarUrl(event.target.value)}
-                  placeholder="https://example.com/photo.jpg"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (!file) return;
+                    if (file.size > 10 * 1024 * 1024) {
+                      event.target.value = "";
+                      return setMessage(
+                        "Profile pictures must be 10 MB or smaller.",
+                      );
+                    }
+                    if (!file.type.startsWith("image/")) {
+                      event.target.value = "";
+                      return setMessage("Please choose a valid image file.");
+                    }
+                    if (avatarPreview) URL.revokeObjectURL(avatarPreview);
+                    setAvatarFile(file);
+                    setAvatarPreview(URL.createObjectURL(file));
+                    setMessage("");
+                  }}
                 />
               </label>
-              <small>
-                Use a direct HTTPS image link. Your profile details are saved
-                securely with your Supabase account.
-              </small>
+              <small>JPEG, PNG, WebP or GIF. Maximum file size: 10 MB.</small>
               {message && (
                 <p
                   className={
