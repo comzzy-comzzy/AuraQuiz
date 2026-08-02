@@ -1197,4 +1197,22 @@ export const topics: Topic[] = [
     ],
   },
 ];
+
+// Keep answer positions balanced and deterministic. The same question always
+// receives the same option order, avoiding hydration differences while
+// preventing a repeated "always choose A" pattern.
+topics.forEach((topic) => {
+  topic.questions.forEach((question, questionIndex) => {
+    const rotation = (questionIndex + topic.number) % question.options.length;
+    if (rotation === 0) return;
+    question.options = [
+      ...question.options.slice(rotation),
+      ...question.options.slice(0, rotation),
+    ];
+    question.answer =
+      (question.answer - rotation + question.options.length) %
+      question.options.length;
+  });
+});
+
 export const getTopic = (slug: string) => topics.find((t) => t.slug === slug);
