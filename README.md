@@ -18,16 +18,8 @@ Create a Supabase project and add its Project URL and anon key to `.env.local`. 
 
 ## Deploy to Vercel
 
-Import this repository and set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel. No database migration is needed for the initial release.
+Import this repository and set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel. Apply the included Supabase migrations for cross-device progress and profile-picture uploads.
 
-The eight-level curriculum contains 80 original questions grounded only in heyAura's official website, official blog and official product materials. It is educational, not financial advice.
-
-## Curriculum sources
-
-- https://x.com/heyaura
-- https://www.heyaura.com/#token
-- https://blog.heyaura.com/heyaura-integrates-payai/
-- https://blog.heyaura.com/adx-staking-migration/
-- https://blog.heyaura.com/heyaura-security-privacy/
+The eight-level curriculum contains 80 original questions and is educational, not financial advice.
 
 The interface direction is inspired by Quizlet's clear, responsive learning flow while retaining Aura's green-and-white identity.

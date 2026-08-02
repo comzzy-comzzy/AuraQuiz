@@ -126,14 +126,6 @@ export function LessonQuiz({
                       </div>
                     ))}
                   </div>
-                  <div className="source-note">
-                    <Lightbulb />
-                    <p>
-                      <b>Grounded in Aura’s product material.</b> This lesson
-                      uses only heyAura’s official website and published
-                      product, security, payment and workflow materials.
-                    </p>
-                  </div>
                 </>
               ) : (
                 <>
