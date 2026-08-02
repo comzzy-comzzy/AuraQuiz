@@ -24,11 +24,13 @@ type Profile = { name: string; avatarUrl: string };
 export function DashboardClient({
   email,
   profile,
+  initialProgress,
 }: {
   email: string;
   profile: Profile;
+  initialProgress: string[];
 }) {
-  const [passed, setPassed] = useState<string[]>([]);
+  const [passed, setPassed] = useState<string[]>(initialProgress);
   const [profileOpen, setProfileOpen] = useState(false);
   const [name, setName] = useState(profile.name);
   const [avatarUrl, setAvatarUrl] = useState(profile.avatarUrl);
@@ -36,7 +38,28 @@ export function DashboardClient({
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
-  useEffect(() => setPassed(readProgress(email)), [email]);
+  useEffect(() => {
+    const localProgress = readProgress(email);
+    const merged = [...new Set([...initialProgress, ...localProgress])];
+    setPassed(merged);
+    async function syncLocalProgress() {
+      if (!localProgress.length) return;
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+      await supabase.from("user_progress").upsert(
+        localProgress.map((topicSlug) => ({
+          user_id: user.id,
+          topic_slug: topicSlug,
+          score: 100,
+        })),
+        { onConflict: "user_id,topic_slug" },
+      );
+    }
+    void syncLocalProgress();
+  }, [email, initialProgress]);
 
   const percent = Math.round((passed.length / topics.length) * 100);
   const currentIndex = topics.findIndex(

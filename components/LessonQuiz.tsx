@@ -15,9 +15,18 @@ import {
 } from "lucide-react";
 import { Topic, topics } from "@/lib/course-data";
 import { markTopicPassed, readProgress } from "@/lib/progress";
+import { createClient } from "@/lib/supabase/client";
 import { Logo } from "./Logo";
 type Mode = "lesson" | "quiz" | "result";
-export function LessonQuiz({ topic, email }: { topic: Topic; email: string }) {
+export function LessonQuiz({
+  topic,
+  email,
+  initialProgress,
+}: {
+  topic: Topic;
+  email: string;
+  initialProgress: string[];
+}) {
   const [mode, setMode] = useState<Mode>("lesson");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [current, setCurrent] = useState(0);
@@ -32,17 +41,30 @@ export function LessonQuiz({ topic, email }: { topic: Topic; email: string }) {
   );
   const next = topics[topic.number];
   useEffect(() => {
-    const passed = readProgress(email);
+    const passed = [...new Set([...initialProgress, ...readProgress(email)])];
     if (topic.number > 1 && !passed.includes(topics[topic.number - 2].slug))
       location.href = "/dashboard";
-  }, [email, topic]);
+  }, [email, initialProgress, topic]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [mode, lessonPage, current]);
-  function submit() {
+  async function submit() {
     if (Object.keys(answers).length < topic.questions.length) return;
     setMode("result");
-    if (score === topic.questions.length) markTopicPassed(email, topic.slug);
+    if (score === topic.questions.length) {
+      markTopicPassed(email, topic.slug);
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user)
+        await supabase
+          .from("user_progress")
+          .upsert(
+            { user_id: user.id, topic_slug: topic.slug, score: 100 },
+            { onConflict: "user_id,topic_slug" },
+          );
+    }
   }
   function retry() {
     setAnswers({});

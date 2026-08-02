@@ -18,9 +18,14 @@ export default async function Dashboard() {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user?.email_confirmed_at) redirect("/login");
+  const { data: progress } = await supabase
+    .from("user_progress")
+    .select("topic_slug")
+    .eq("user_id", user.id);
   return (
     <DashboardClient
       email={user.email!}
+      initialProgress={progress?.map((row) => row.topic_slug) ?? []}
       profile={{
         name: user.user_metadata?.full_name ?? "",
         avatarUrl: user.user_metadata?.avatar_url ?? "",
