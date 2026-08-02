@@ -80,7 +80,7 @@ export const topics: Topic[] = [
         "Aura is a fully autonomous AI assistant integrated directly into a Web3 wallet.",
       ),
       Q(
-        "What does self-custodial mean in Aura's model?",
+        "What does self-custody mean when using Aura?",
         [
           "Aura owns the assets",
           "An exchange holds every key",
@@ -124,7 +124,7 @@ export const topics: Topic[] = [
         "Approvals are permissions and may represent risk if broad or stale.",
       ),
       Q(
-        "Which is a behavioral signal?",
+        "Which of these is a behavioral signal?",
         [
           "A token logo",
           "Patterns in past wallet activity",
@@ -157,7 +157,7 @@ export const topics: Topic[] = [
         "Headline value alone does not describe leverage or concentration risk.",
       ),
       Q(
-        "Which network set is natively associated with Aura's EVM support?",
+        "Which group of networks does Aura support natively?",
         [
           "Ethereum, Base, Optimism and Arbitrum",
           "Only Bitcoin",
@@ -272,7 +272,7 @@ export const topics: Topic[] = [
         "Health deterioration can require prompt review.",
       ),
       Q(
-        "Why record the source chain?",
+        "Why should you record a position's source chain?",
         [
           "The same asset can sit in different contracts and risk environments",
           "Chains are identical",
@@ -283,7 +283,7 @@ export const topics: Topic[] = [
         "Chain and contract context identify the actual position.",
       ),
       Q(
-        "What can accrued rewards change?",
+        "What do accrued rewards affect?",
         [
           "The position's total return",
           "The seed phrase",
@@ -305,7 +305,7 @@ export const topics: Topic[] = [
         "Aura prepares; the user explicitly approves execution.",
       ),
       Q(
-        "A good alert should include what?",
+        "What should a useful position alert include?",
         [
           "Changed variable, context and possible response",
           "Only an emoji",
@@ -316,7 +316,7 @@ export const topics: Topic[] = [
         "Context makes the alert actionable.",
       ),
       Q(
-        "Which metric best indicates leveraged-position safety?",
+        "Which metric best shows the safety of a leveraged position?",
         [
           "Health factor or collateral ratio",
           "Token name length",
@@ -357,7 +357,7 @@ export const topics: Topic[] = [
         body: "Slippage tolerance defines how far execution may move from the quote before reverting. Very low tolerance can fail in volatile markets; very high tolerance accepts a worse outcome and increases exposure to adverse execution.",
       },
       {
-        title: "Review before approve",
+        title: "Review before approving",
         body: "Confirm token addresses, chain, amount, spender approval and minimum received. Aura can route and prepare swaps or trades from a natural-language request, but it cannot execute without explicit user approval.",
         callout:
           "Simulation explains an expected result; your signature authorizes the real transaction.",
@@ -387,7 +387,7 @@ export const topics: Topic[] = [
         "It sets an execution boundary.",
       ),
       Q(
-        "What can very high slippage allow?",
+        "What can happen if the slippage tolerance is too high?",
         [
           "A materially worse execution price",
           "Free gas forever",
@@ -398,7 +398,7 @@ export const topics: Topic[] = [
         "A loose boundary can accept a poor fill.",
       ),
       Q(
-        "What is price impact?",
+        "What does price impact measure?",
         [
           "The trade's effect on the pool price",
           "The wallet's battery use",
@@ -420,7 +420,7 @@ export const topics: Topic[] = [
         "The address identifies the real asset.",
       ),
       Q(
-        "What does minimum received express?",
+        "What does ‘minimum received’ mean in a swap?",
         [
           "The lowest output accepted at execution",
           "The wallet balance",
@@ -431,7 +431,7 @@ export const topics: Topic[] = [
         "It is the concrete output protection derived from slippage.",
       ),
       Q(
-        "What may require a separate transaction before an ERC-20 swap?",
+        "What might require a separate transaction before an ERC-20 swap?",
         ["Token approval", "Email change", "Bridge finality", "NFT mint"],
         0,
         "A spender often needs an allowance before swapping.",
@@ -487,7 +487,7 @@ export const topics: Topic[] = [
           "Aura simplifies the bridge flow, but the user still gives final approval.",
       },
       {
-        title: "Bridges move chain context",
+        title: "A bridge moves value between chains",
         body: "A bridge transfers or represents value from a source chain to a destination chain. It is not automatically a swap: the asset may remain economically the same while its chain and contract representation change.",
       },
       {
@@ -503,7 +503,7 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "Which bridge experience does Aura advertise?",
+        "What bridge feature does Aura provide?",
         [
           "A one-click bridge for cross-chain assets",
           "A bridge requiring custody transfer",
@@ -525,7 +525,7 @@ export const topics: Topic[] = [
         "Chain movement and asset exchange are distinct operations.",
       ),
       Q(
-        "What must be verified first?",
+        "What should you verify first before bridging?",
         [
           "Source and destination chains",
           "Screen brightness",
@@ -536,7 +536,7 @@ export const topics: Topic[] = [
         "A wrong network choice can strand or lose funds.",
       ),
       Q(
-        "Why keep source-chain gas?",
+        "Why should you keep enough gas on the source chain?",
         [
           "To pay for submitting required transactions",
           "To change the token logo",
@@ -558,7 +558,7 @@ export const topics: Topic[] = [
         "Destination finality is the relevant completion state.",
       ),
       Q(
-        "What can differ by bridge route?",
+        "What can vary between bridge routes?",
         [
           "Trust assumptions, fees and time",
           "User's legal name",
@@ -569,7 +569,7 @@ export const topics: Topic[] = [
         "Bridge mechanisms have different risk and performance profiles.",
       ),
       Q(
-        "Why check destination token representation?",
+        "Why should you check the token contract on the destination chain?",
         [
           "Bridged and native versions may use different contracts",
           "All contracts are identical",
@@ -580,7 +580,7 @@ export const topics: Topic[] = [
         "Contract identity matters for usability and liquidity.",
       ),
       Q(
-        "What should recipient verification prevent?",
+        "Why should you verify the recipient address?",
         [
           "Sending to the wrong address",
           "Gas estimation",
@@ -624,7 +624,7 @@ export const topics: Topic[] = [
     ],
     sections: [
       {
-        title: "Smart Yield is AI-driven discovery",
+        title: "Smart Yield uses AI-driven discovery",
         body: "Aura calls its yield feature Smart Yield: AI-driven discovery of the best APY across chains. The assistant can monitor for new yield opportunities, resurface them and help the user act. Aura places this alongside portfolio management, swaps, bridges and built-in risk protection, so yield discovery is presented as one part of an AI-assisted wallet experience rather than a separate generic search tool.",
         callout:
           "Smart Yield uses AI to discover APY opportunities across chains.",
@@ -668,7 +668,7 @@ export const topics: Topic[] = [
         "Incentive value is variable.",
       ),
       Q(
-        "What does net yield subtract?",
+        "Which costs are subtracted when calculating net yield?",
         [
           "Fees and relevant costs",
           "Only token decimals",
@@ -679,7 +679,7 @@ export const topics: Topic[] = [
         "Costs reduce realized return.",
       ),
       Q(
-        "Why inspect lockups?",
+        "Why should you check for lockup periods?",
         [
           "They limit when funds can be withdrawn",
           "They guarantee profit",
@@ -701,7 +701,7 @@ export const topics: Topic[] = [
         "Calculation methods and exposures matter.",
       ),
       Q(
-        "What risk accompanies reward tokens?",
+        "What risk comes with receiving reward tokens?",
         [
           "Their market value may fall",
           "They cannot be transferred",
@@ -734,7 +734,7 @@ export const topics: Topic[] = [
         "Return quality depends on its source.",
       ),
       Q(
-        "Which activity contributes to Aura ecosystem product revenue?",
+        "Which activity contributes to product revenue in the Aura ecosystem?",
         [
           "Security and discovery deposits",
           "Printing seed phrases",
@@ -745,7 +745,7 @@ export const topics: Topic[] = [
         "Security and discovery deposits are part of Aura's product-revenue model.",
       ),
       Q(
-        "What is risk-adjusted comparison?",
+        "What does a risk-adjusted comparison consider?",
         [
           "Considering return together with loss and liquidity risks",
           "Choosing the largest number",
@@ -816,7 +816,7 @@ export const topics: Topic[] = [
         "Ongoing review addresses evolving code.",
       ),
       Q(
-        "Which is market risk?",
+        "Which example shows market risk?",
         [
           "Collateral price falls sharply",
           "A typo in CSS",
@@ -827,7 +827,7 @@ export const topics: Topic[] = [
         "Price changes can cause loss or liquidation.",
       ),
       Q(
-        "Which is smart-contract risk?",
+        "Which example shows smart-contract risk?",
         [
           "A bug allows unintended fund movement",
           "Reward price falls",
@@ -849,7 +849,7 @@ export const topics: Topic[] = [
         "Concentrated exposure magnifies a single event.",
       ),
       Q(
-        "What should remote processing receive?",
+        "How much wallet data should remote processing receive?",
         [
           "Only data required for the task",
           "Every raw wallet detail",
@@ -936,7 +936,7 @@ export const topics: Topic[] = [
     ],
     questions: [
       Q(
-        "What is the boundary between Aura's AI preparation and execution?",
+        "What separates Aura's transaction preparation from execution?",
         [
           "The user must explicitly approve the action",
           "Aura executes every prepared action automatically",
@@ -958,7 +958,7 @@ export const topics: Topic[] = [
         "A human-readable preview supports informed approval.",
       ),
       Q(
-        "What does simulation provide?",
+        "What does a transaction simulation provide?",
         [
           "An estimate based on current state",
           "A permanent guarantee",
@@ -1024,7 +1024,7 @@ export const topics: Topic[] = [
         "PayAI handles the payment layer for paid external services.",
       ),
       Q(
-        "What is x402 connected to?",
+        "What is the x402 payment standard based on?",
         [
           "HTTP 402 Payment Required and digital-currency payments",
           "An NFT image format",
@@ -1077,7 +1077,7 @@ export const topics: Topic[] = [
         body: "Onchain steps do not always succeed together. If a bridge completes but a deposit fails, the workflow should report where funds are now and offer a safe next action rather than repeating completed steps.",
       },
       {
-        title: "Aura example: ADX migration",
+        title: "An Aura workflow: ADX migration",
         body: "The prompt “Migrate my existing adx-staking position into stkADX” becomes the required set of transactions, which the user still approves. The new unified pool adds product access, revenue sharing and governance rights. Migration begins with a penalty-free grace period, followed by a penalty window that increases daily.",
         callout:
           "Automation should reduce coordination work, never hide irreversible decisions.",
@@ -1118,7 +1118,7 @@ export const topics: Topic[] = [
         "User approval remains mandatory.",
       ),
       Q(
-        "A bridge succeeds but deposit fails. What is correct?",
+        "If a bridge succeeds but the deposit fails, what should happen next?",
         [
           "Report current fund location and resume from the failed step",
           "Repeat the bridge blindly",
@@ -1129,7 +1129,7 @@ export const topics: Topic[] = [
         "Recovery must respect completed state.",
       ),
       Q(
-        "What can serve as a step prerequisite?",
+        "What can be a prerequisite for a workflow step?",
         [
           "Sufficient token allowance or balance",
           "A green button",
@@ -1184,7 +1184,7 @@ export const topics: Topic[] = [
         "Onchain actions can be irreversible and costly.",
       ),
       Q(
-        "What is the best workflow completion evidence?",
+        "What best proves that a workflow is complete?",
         [
           "Confirmed final state for every required step",
           "A loading spinner",
