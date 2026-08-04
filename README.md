@@ -1,6 +1,6 @@
 # Aura Academy
 
-A responsive mastery-learning website for the heyAura community. Users verify their email, learn eight ordered topics, answer ten questions per topic, review mistakes and retry until a 100% score unlocks the next level.
+A responsive mastery-learning website for the heyAura community. Users create an account, learn eight ordered topics, answer ten questions per topic, review mistakes and retry until a 100% score unlocks the next level.
 
 ## Run locally
 
@@ -12,9 +12,9 @@ npm run dev
 
 Create a Supabase project and add its Project URL and anon key to `.env.local`. In Supabase Authentication:
 
-1. Keep **Confirm email** enabled.
-2. Add `http://localhost:3000/auth/confirm` to Redirect URLs.
-3. After deploying, add `https://YOUR-VERCEL-DOMAIN.vercel.app/auth/confirm` too.
+1. Disable **Confirm email** so new users can enter their dashboard immediately.
+2. Add `http://localhost:3000/auth/confirm` to Redirect URLs if you later re-enable confirmation.
+3. After deploying, add `https://YOUR-VERCEL-DOMAIN.vercel.app/auth/confirm` too if confirmation is enabled.
 
 ## Deploy to Vercel
 

@@ -15,7 +15,7 @@ export default async function Learn({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user?.email_confirmed_at) redirect("/login");
+  if (!user) redirect("/login");
   const { data: progress } = await supabase
     .from("user_progress")
     .select("topic_slug")

@@ -8,8 +8,8 @@ export async function middleware(request: NextRequest) {
   if (!url || !key) return response;
   const supabase = createServerClient(url, key, { cookies: { getAll: () => request.cookies.getAll(), setAll(items: CookieUpdate[]) { items.forEach(({name,value}) => request.cookies.set(name,value)); response = NextResponse.next({request}); items.forEach(({name,value,options}) => response.cookies.set(name,value,options)); } } });
   const { data: { user } } = await supabase.auth.getUser();
-  if (request.nextUrl.pathname.startsWith("/dashboard") && (!user || !user.email_confirmed_at)) return NextResponse.redirect(new URL("/login", request.url));
-  if ((request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/signup") && user?.email_confirmed_at) return NextResponse.redirect(new URL("/dashboard", request.url));
+  if (request.nextUrl.pathname.startsWith("/dashboard") && !user) return NextResponse.redirect(new URL("/login", request.url));
+  if ((request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/signup") && user) return NextResponse.redirect(new URL("/dashboard", request.url));
   return response;
 }
 export const config = { matcher: ["/dashboard/:path*", "/login", "/signup"] };
